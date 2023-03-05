@@ -77,7 +77,7 @@ class _Fpass extends State<Fpass> {
                   // Resend button
                   const SizedBox(height: 70),
                   ConnectionButton(
-                    buttonText: 'Se connecter',
+                    buttonText: 'Renvoyer mon mot de passe',
                     onPressed: resetPassword,
                     filled: true,
                   ),

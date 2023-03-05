@@ -14,4 +14,5 @@ class VectorialImages {
   static const String warning = 'assets/icones/warning.svg';
   static const String whishlist = 'assets/icones/whishlist.svg';
   static const String whishlistFull = 'assets/icones/whishlist_full.svg';
+  static const String power = 'assets/icones/power.svg';
 }

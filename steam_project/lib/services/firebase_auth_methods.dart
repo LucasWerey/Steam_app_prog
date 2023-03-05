@@ -9,7 +9,6 @@ class FirebaseAuthMethods {
   final FirebaseAuth _auth;
   FirebaseAuthMethods(this._auth);
 
-
   // STATE PERSISTENCE
   Stream<User?> get authState => FirebaseAuth.instance.authStateChanges();
 
@@ -19,11 +18,20 @@ class FirebaseAuthMethods {
     required String password,
     required BuildContext context,
   }) async {
+    showDialog(
+        context: context,
+        builder: (context) => const Center(
+              child: CircularProgressIndicator(),
+            ),
+        barrierDismissible: false);
     try {
       await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
+      showSnackBar(context, 'Compte créé avec succès');
+      Navigator.of(context).popUntil((route) => route.isFirst);
     } on FirebaseAuthException catch (e) {
       showSnackBar(context, e.message!);
+      Navigator.of(context).pop();
     }
   }
 
@@ -33,20 +41,36 @@ class FirebaseAuthMethods {
     required String password,
     required BuildContext context,
   }) async {
+    showDialog(
+        context: context,
+        builder: (context) => const Center(
+              child: CircularProgressIndicator(),
+            ),
+        barrierDismissible: false);
     try {
       await _auth.signInWithEmailAndPassword(email: email, password: password);
+      Navigator.of(context).popUntil((route) => route.isFirst);
     } on FirebaseAuthException catch (e) {
       showSnackBar(context, e.message!);
+      Navigator.of(context).pop();
     }
   }
 
   // SIGN OUT
 
   Future<void> signOut(BuildContext context) async {
+    showDialog(
+        context: context,
+        builder: (context) => const Center(
+              child: CircularProgressIndicator(),
+            ),
+        barrierDismissible: false);
     try {
       await _auth.signOut();
+      Navigator.of(context).popUntil((route) => route.isFirst);
     } on FirebaseAuthException catch (e) {
       showSnackBar(context, e.message!);
+      Navigator.of(context).pop();
     }
   }
 
@@ -55,11 +79,19 @@ class FirebaseAuthMethods {
     required String email,
     required BuildContext context,
   }) async {
+    showDialog(
+        context: context,
+        builder: (context) => const Center(
+              child: CircularProgressIndicator(),
+            ),
+        barrierDismissible: false);
     try {
       await _auth.sendPasswordResetEmail(email: email);
       showSnackBar(context, "Un email de réinitialisation a été envoyé");
+      Navigator.of(context).popUntil((route) => route.isFirst);
     } on FirebaseAuthException catch (e) {
       showSnackBar(context, e.message!);
+      Navigator.of(context).pop();
     }
   }
 }

@@ -25,10 +25,14 @@ class SignUpScreen extends State<SignUpPage> {
   }
 
   void signUpUser() async {
-    FirebaseAuthMethods(FirebaseAuth.instance).signUpWithEmail(
-        email: emailController.text,
-        password: passwordController.text,
-        context: context);
+    if (passwordController.text != password2Controller.text) {
+      print("Les mots de passe ne correspondent pas");
+    } else {
+      FirebaseAuthMethods(FirebaseAuth.instance).signUpWithEmail(
+          email: emailController.text,
+          password: passwordController.text,
+          context: context);
+    }
   }
 
   @override
@@ -46,15 +50,15 @@ class SignUpScreen extends State<SignUpPage> {
             body: SafeArea(
                 child: Center(
               child: Column(children: [
-              const  SizedBox(height: 60),
-               const Text('Inscription',
+                const SizedBox(height: 60),
+                const Text('Inscription',
                     style: TextStyle(
                       fontSize: 30.53,
                       fontFamily: 'GoogleSans',
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
                     )),
-               const SizedBox(height: 20),
+                const SizedBox(height: 20),
                 const SizedBox(
                   width: 300,
                   child: Text(

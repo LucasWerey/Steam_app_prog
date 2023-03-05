@@ -5,4 +5,5 @@ class Images {
 
   static const String backgroundEmpty = 'assets/images/BackgroundEmpty.png';
   static const String backgroundImg = 'assets/images/BackgroundImg.png';
+  static const String HeroImg = 'assets/images/hero.png';
 }
