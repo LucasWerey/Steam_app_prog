@@ -26,7 +26,6 @@ class SignUpScreen extends State<SignUpPage> {
 
   void signUpUser() async {
     if (passwordController.text != password2Controller.text) {
-      print("Les mots de passe ne correspondent pas");
     } else {
       FirebaseAuthMethods(FirebaseAuth.instance).signUpWithEmail(
           email: emailController.text,

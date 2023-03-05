@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:steam_project/utils/showSnackBar.dart';
-
 import '../components/buttons/connection_button.dart';
-import '../components/buttons/custom_button.dart';
 import '../components/textfields/login_textfield.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../services/firebase_auth_methods.dart';

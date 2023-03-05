@@ -37,8 +37,8 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         home: const AuthWrapper(),
         routes: <String, WidgetBuilder>{
-          "/signup": (BuildContext context) => SignUpPage(),
-          "/fpassword": (BuildContext context) => Fpass(),
+          "/signup": (BuildContext context) => const SignUpPage(),
+          "/fpassword": (BuildContext context) => const Fpass(),
         },
       ),
     );
@@ -53,7 +53,7 @@ class AuthWrapper extends StatelessWidget {
     final firebaseUser = context.watch<User?>();
 
     if (firebaseUser != null) {
-      return HomeScreen();
+      return const HomeScreen();
     }
     return const LoginPage();
   }

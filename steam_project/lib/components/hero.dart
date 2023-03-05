@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../resources/resources.dart';
 
 class CustomComponent extends StatelessWidget {
   final String title;

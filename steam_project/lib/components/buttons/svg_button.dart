@@ -5,7 +5,7 @@ class SvgClickableComponent extends StatelessWidget {
   final String svgPath;
   final VoidCallback onPressed;
 
-  SvgClickableComponent({required this.svgPath, required this.onPressed});
+  const SvgClickableComponent({super.key, required this.svgPath, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
