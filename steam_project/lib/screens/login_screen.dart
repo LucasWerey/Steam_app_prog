@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../components/buttons/connection_button.dart';
+import '../components/buttons/custom_button.dart';
 import '../components/textfields/login_textfield.dart';
 import '../resources/resources.dart';
 import '../services/firebase_auth_methods.dart';
@@ -98,11 +99,10 @@ class _LoginPageState extends State<LoginPage> {
 
                   // Create account
                   const SizedBox(height: 10),
-                  ConnectionButton(
-                    buttonText: 'Créer un nouveau compte',
-                    filled: false,
-                    onPressed: loginUser,
-                  ),
+                  const MyButton(
+                      filled: false,
+                      text: "Créer un nouveau compte",
+                      page: "signup"),
 
                   // FORGOTTEN PASSWORD
                   const SizedBox(height: 170),

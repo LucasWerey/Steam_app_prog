@@ -6,6 +6,7 @@ import 'package:steam_project/screens/home_screen.dart';
 import 'package:steam_project/screens/login_screen.dart';
 import 'package:steam_project/services/firebase_auth_methods.dart';
 import 'firebase_options.dart';
+import './screens/signup_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,14 +31,12 @@ class MyApp extends StatelessWidget {
             create: (context) => context.read<FirebaseAuthMethods>().authState,
             initialData: null)
       ],
-      child: const MaterialApp(
+      child: MaterialApp(
         title: 'firstRoute',
         debugShowCheckedModeBanner: false,
-        home: AuthWrapper(),
-        //home: SearchPage(),
+        home: const AuthWrapper(),
         routes: <String, WidgetBuilder>{
-          //  "/inscription": (BuildContext context) => InscriptionPage(),
-          //  "/fpassword": (BuildContext context) => FPasswordPage(),
+          "/signup": (BuildContext context) => SignUpPage(),
         },
       ),
     );
@@ -54,6 +53,6 @@ class AuthWrapper extends StatelessWidget {
     if (firebaseUser != null) {
       return const HomeScreen();
     }
-    return LoginPage();
+    return const LoginPage();
   }
 }
