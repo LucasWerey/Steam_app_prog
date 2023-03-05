@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>116204902612-m1f9tn10h1l577fahksr9cdcpmc2q7gp.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.116204902612-m1f9tn10h1l577fahksr9cdcpmc2q7gp</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAWFLpV5mmoexCP-b2giF5UkF1ok8fQlY4</string>
+	<key>GCM_SENDER_ID</key>
+	<string>116204902612</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.steamProject</string>
+	<key>PROJECT_ID</key>
+	<string>steamapp-77c4e</string>
+	<key>STORAGE_BUCKET</key>
+	<string>steamapp-77c4e.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:116204902612:ios:6cec694fa5ef1454864341</string>
+</dict>
+</plist>
