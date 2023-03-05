@@ -49,4 +49,17 @@ class FirebaseAuthMethods {
       showSnackBar(context, e.message!);
     }
   }
+
+  // RESET PASSWORD
+  Future<void> resetPassword({
+    required String email,
+    required BuildContext context,
+  }) async {
+    try {
+      await _auth.sendPasswordResetEmail(email: email);
+      showSnackBar(context, "Un email de réinitialisation a été envoyé");
+    } on FirebaseAuthException catch (e) {
+      showSnackBar(context, e.message!);
+    }
+  }
 }

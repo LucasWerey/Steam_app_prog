@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:steam_project/screens/home_screen.dart';
 import 'package:steam_project/screens/login_screen.dart';
+import 'package:steam_project/screens/lostpass_screen.dart';
 import 'package:steam_project/services/firebase_auth_methods.dart';
 import 'firebase_options.dart';
 import './screens/signup_screen.dart';
@@ -37,6 +38,7 @@ class MyApp extends StatelessWidget {
         home: const AuthWrapper(),
         routes: <String, WidgetBuilder>{
           "/signup": (BuildContext context) => SignUpPage(),
+          "/fpassword": (BuildContext context) => Fpass(),
         },
       ),
     );

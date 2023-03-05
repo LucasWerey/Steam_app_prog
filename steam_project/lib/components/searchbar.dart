@@ -20,7 +20,7 @@ class Search_Bar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 22),
+        padding: const EdgeInsets.symmetric(horizontal: 12),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -50,7 +50,7 @@ class Search_Bar extends StatelessWidget {
                     fontSize: 12.92,
                   ),
                   suffixIcon: Padding(
-                    padding: const EdgeInsets.only(right: 12.0),
+                    padding: const EdgeInsets.only(right: 0.0),
                     child: IconButton(
                       onPressed: () {},
                       icon: SvgPicture.asset(VectorialImages.search),
