@@ -36,6 +36,7 @@ dependencies:
     sdk: flutter
   provider: ^6.0.5
   spider: ^4.0.0
+  flutter_svg: ^1.1.6
 
 dev_dependencies:
   # The "flutter_lints" package below contains a set of recommended lints to
