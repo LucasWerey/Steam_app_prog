@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../resources/resources.dart';
+import '../screens/product_screen.dart';
 
 class GameCard extends StatelessWidget {
   final String appId;
@@ -97,9 +98,16 @@ class GameCard extends StatelessWidget {
                 decoration: const BoxDecoration(
                   color: Color(0xFF636AF6),
                 ),
-                child: const ElevatedButton(
-                  onPressed: null,
-                  child: Text(
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ProductPage(appid: appId),
+                      ),
+                    );
+                  },
+                  child: const Text(
                     'En savoir plus',
                     style: TextStyle(
                       fontSize: 16,

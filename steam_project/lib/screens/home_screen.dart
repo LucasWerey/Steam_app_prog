@@ -4,6 +4,7 @@ import 'package:steam_project/components/searchbar.dart';
 import '../components/game_card.dart';
 import '../components/topbar.dart';
 import '../resources/resources.dart';
+import '../services/api_service.dart';
 import '../services/firebase_auth_methods.dart';
 import '../components/hero.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -26,7 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
 // WE GET THE APP ID OF THE GAME
-  Future<void> fetchGame() async {
+/*  Future<void> fetchGame() async {
     final response = await http.get(Uri.parse(
         'https://api.steampowered.com/ISteamChartsService/GetMostPlayedGames/v1/?'));
 
@@ -40,10 +41,10 @@ class _HomeScreenState extends State<HomeScreen> {
     } else {
       throw Exception('Failed to load app IDs');
     }
-  }
+  }*/
 
 // WE GET THE DETAILS OF THE GAME
-  Future<Map<String, dynamic>> fetchAppDetails(int appId) async {
+  /* Future<Map<String, dynamic>> fetchAppDetails(int appId) async {
     final response = await http.get(Uri.parse(
         'https://store.steampowered.com/api/appdetails?appids=$appId'));
 
@@ -63,12 +64,20 @@ class _HomeScreenState extends State<HomeScreen> {
     } else {
       throw Exception('Failed to load app details');
     }
-  }
+  }*/
 
   @override
-  void initState() {
+  /* void initState() {
     super.initState();
     fetchGame();
+  }*/
+  void initState() {
+    super.initState();
+    fetchAppIds().then((ids) {
+      setState(() {
+        appIds = ids;
+      });
+    });
   }
 
   @override
