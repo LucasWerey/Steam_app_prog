@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../utils/showSnackBar.dart';
@@ -92,8 +94,9 @@ class FirebaseAuthMethods {
       if (e.code == 'network-request-failed') {
         showSnackBar(context, 'Veuillez vérifier votre connexion internet');
         Navigator.of(context).pop();
-      } else
+      } else {
         showSnackBar(context, e.message!);
+      }
       Navigator.of(context).pop();
     }
   }

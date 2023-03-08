@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:steam_project/utils/showSnackBar.dart';
 import '../components/buttons/connection_button.dart';
 import '../components/textfields/login_textfield.dart';
 import '../services/firebase_auth_methods.dart';
@@ -26,6 +27,7 @@ class SignUpScreen extends State<SignUpPage> {
 
   void signUpUser() async {
     if (passwordController.text != password2Controller.text) {
+      showSnackBar(context, 'Les mots de passe ne correspondent pas');
     } else {
       FirebaseAuthMethods(FirebaseAuth.instance).signUpWithEmail(
           email: emailController.text,

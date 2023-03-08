@@ -1,4 +1,7 @@
+// ignore_for_file: non_constant_identifier_names
+
 class Game {
+
   String steam_appid;
   String name;
   bool isFree;

@@ -4,7 +4,7 @@ class ReviewCard extends StatelessWidget {
   final String username;
   final String text;
 
-  ReviewCard({required this.username, required this.text});
+  const ReviewCard({super.key, required this.username, required this.text});
 
   @override
   Widget build(BuildContext context) {
@@ -12,26 +12,26 @@ class ReviewCard extends StatelessWidget {
       width: MediaQuery.of(context)
           .size
           .width, // élargir sur toute la largeur de l'écran
-      color: Color(
+      color: const Color(
           0xFF1E262C), // changer la couleur d'arrière-plan en utilisant la couleur hexadécimale
       child: Card(
-        color: Color(0xFF1E262C),
-        margin: EdgeInsets.symmetric(horizontal: 20),
+        color: const Color(0xFF1E262C),
+        margin: const EdgeInsets.symmetric(horizontal: 20),
         child: Padding(
-          padding: EdgeInsets.all(20),
+          padding: const EdgeInsets.all(20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 username,
-                style: TextStyle(
+                style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
                     color: Colors.white),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Text(text,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 14,
                     color: Colors.white,
                   )),

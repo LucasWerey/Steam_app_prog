@@ -7,8 +7,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 class Search_Bar extends StatelessWidget {
   // ignore: prefer_typing_uninitialized_variables
   final controller;
-  final String hintText; //'Rechercher un jeu'
-  //final bool obscureText; //pour cacher ce qu'on saisit (mdp)
+  final String hintText; 
+
 
   const Search_Bar({
     super.key,

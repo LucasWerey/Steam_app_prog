@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_string_escapes
+
 import 'package:flutter/material.dart';
 import 'package:steam_project/components/searchbar.dart';
 import '../components/game_card.dart';

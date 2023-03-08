@@ -28,6 +28,7 @@ class GameCard extends StatelessWidget {
         elevation: 4,
         child: Container(
           decoration: BoxDecoration(
+            // ignore: unnecessary_null_comparison
             image: backgroundImage != null
                 ? DecorationImage(
                     image: NetworkImage(backgroundImage),

@@ -48,9 +48,9 @@ Future<Game> fetchGame(int appId) async {
     final json = jsonDecode(response.body)['$appId']['data'];
     bool isFree = json['is_free'];
 
-    String? final_formatted;
+    String? finalFormatted;
     if (!isFree) {
-      final_formatted = json['price_overview'] != null
+      finalFormatted = json['price_overview'] != null
           ? json['price_overview']['final_formatted']
           : 'N/A';
     }
@@ -65,7 +65,7 @@ Future<Game> fetchGame(int appId) async {
       developers: List<String>.from(json['developers']),
       backgroundRaw: json['background_raw'],
       background: json['background'] ?? '',
-      final_formatted: final_formatted,
+      final_formatted: finalFormatted,
     );
   } else {
     throw Exception('Failed to fetch game');

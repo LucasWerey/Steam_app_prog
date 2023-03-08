@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:steam_project/components/review_card.dart';
 import 'package:steam_project/services/api_service.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 
 class GameDetailsSlider extends StatefulWidget {
@@ -12,6 +11,7 @@ class GameDetailsSlider extends StatefulWidget {
       : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _GameDetailsSliderState createState() => _GameDetailsSliderState();
 }
 
