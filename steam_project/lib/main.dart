@@ -41,8 +41,8 @@ class MyApp extends StatelessWidget {
         routes: <String, WidgetBuilder>{
           "/signup": (BuildContext context) => const SignUpPage(),
           "/fpassword": (BuildContext context) => const Fpass(),
-          "/wishlist": (BuildContext context) => WishlistPage(),
-          "/like": (BuildContext context) => LikesPage(),
+          "/wishlist": (BuildContext context) => const WishListPage(),
+          "/like": (BuildContext context) => const LikesPage(),
         },
       ),
     );

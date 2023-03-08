@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
 import '../utils/showSnackBar.dart';
 
 class FirebaseAuthMethods {
@@ -28,8 +27,20 @@ class FirebaseAuthMethods {
       showSnackBar(context, 'Compte créé avec succès');
       Navigator.of(context).popUntil((route) => route.isFirst);
     } on FirebaseAuthException catch (e) {
-      showSnackBar(context, e.message!);
-      Navigator.of(context).pop();
+      if (e.code == 'email-already-in-use') {
+        showSnackBar(context, 'Cet email est déjà utilisé');
+        Navigator.pop(context);
+      } else if (e.code == 'invalid-email') {
+        showSnackBar(context, 'Veuillez entrer une adresse email valide');
+        Navigator.pop(context);
+      } else if (e.code == 'weak-password') {
+        showSnackBar(
+            context, 'Le mot de passe doit contenir au moins 6 caractères');
+        Navigator.pop(context);
+      } else if (e.code == 'network-request-failed') {
+        showSnackBar(context, 'Veuillez vérifier votre connexion internet');
+        Navigator.of(context).pop();
+      }
     }
   }
 
@@ -49,8 +60,19 @@ class FirebaseAuthMethods {
       await _auth.signInWithEmailAndPassword(email: email, password: password);
       Navigator.of(context).popUntil((route) => route.isFirst);
     } on FirebaseAuthException catch (e) {
-      showSnackBar(context, e.message!);
-      Navigator.of(context).pop();
+      if (e.code == 'user-not-found') {
+        showSnackBar(context, 'Aucun utilisateur trouvé pour cet email');
+        Navigator.pop(context);
+      } else if (e.code == 'wrong-password') {
+        showSnackBar(context, 'Mot de passe incorrect');
+        Navigator.pop(context);
+      } else if (e.code == 'invalid-email') {
+        showSnackBar(context, 'Veuillez entrer une adresse email valide');
+        Navigator.pop(context);
+      } else if (e.code == 'network-request-failed') {
+        showSnackBar(context, 'Veuillez vérifier votre connexion internet');
+        Navigator.of(context).pop();
+      }
     }
   }
 
@@ -67,7 +89,11 @@ class FirebaseAuthMethods {
       await _auth.signOut();
       Navigator.of(context).popUntil((route) => route.isFirst);
     } on FirebaseAuthException catch (e) {
-      showSnackBar(context, e.message!);
+      if (e.code == 'network-request-failed') {
+        showSnackBar(context, 'Veuillez vérifier votre connexion internet');
+        Navigator.of(context).pop();
+      } else
+        showSnackBar(context, e.message!);
       Navigator.of(context).pop();
     }
   }
@@ -88,8 +114,16 @@ class FirebaseAuthMethods {
       showSnackBar(context, "Un email de réinitialisation a été envoyé");
       Navigator.of(context).popUntil((route) => route.isFirst);
     } on FirebaseAuthException catch (e) {
-      showSnackBar(context, 'Veuillez entrer une adresse email valide');
-      Navigator.of(context).pop();
+      if (e.code == 'network-request-failed') {
+        showSnackBar(context, 'Veuillez vérifier votre connexion internet');
+        Navigator.of(context).pop();
+      } else if (e.code == 'invalid-email') {
+        showSnackBar(context, 'Veuillez entrer une adresse email valide');
+        Navigator.of(context).pop();
+      } else if (e.code == 'user-not-found') {
+        showSnackBar(context, 'Aucun utilisateur trouvé pour cet email');
+        Navigator.of(context).pop();
+      }
     }
   }
 }

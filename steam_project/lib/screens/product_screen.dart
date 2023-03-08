@@ -1,9 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:steam_project/model/game.dart';
 import 'package:steam_project/resources/resources.dart';
 import 'package:steam_project/services/api_service.dart';
 import 'package:steam_project/components/slider_details.dart';
+import 'package:steam_project/utils/showSnackBar.dart';
 
 import '../components/buttons/svg_button.dart';
 import '../components/details_game_card.dart';
@@ -21,11 +24,44 @@ class _ProductPageState extends State<ProductPage> {
   late Future<Game> _gameFuture;
   int _currentTab = 0;
   int? reviewScore;
+  Game? game;
+  bool isLiked = false;
+  bool isFavorited = false;
+
+  Future<void> checkIfLiked() async {
+    final userDocSnapshot = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .collection('likes')
+        .doc(widget.appid)
+        .get();
+    if (userDocSnapshot.exists) {
+      setState(() {
+        isLiked = true;
+      });
+    }
+  }
+
+  Future<void> checkIfFavorited() async {
+    final userDocSnapshot = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .collection('wishlist')
+        .doc(widget.appid)
+        .get();
+    if (userDocSnapshot.exists) {
+      setState(() {
+        isFavorited = true;
+      });
+    }
+  }
 
   @override
   void initState() {
     super.initState();
     _gameFuture = fetchGame(int.parse(widget.appid));
+    checkIfLiked();
+    checkIfFavorited();
   }
 
   @override
@@ -37,13 +73,91 @@ class _ProductPageState extends State<ProductPage> {
         backgroundColor: const Color(0xFF1a2025),
         actions: <Widget>[
           SvgClickableComponent(
-            onPressed: () {},
-            svgPath: VectorialImages.like,
+            onPressed: () async {
+              final userDocRef = FirebaseFirestore.instance
+                  .collection('users')
+                  .doc(FirebaseAuth.instance.currentUser!.uid)
+                  .collection('likes')
+                  .doc(widget.appid);
+              final userDocSnapshot = await userDocRef.get();
+              if (userDocSnapshot.exists) {
+                try {
+                  await userDocRef.delete();
+                  showSnackBar(context, 'Jeu retiré des likes avec succès');
+                } catch (e) {
+                  showSnackBar(context, 'Erreur pendant la suppression du jeu');
+                }
+                setState(() {
+                  isLiked = false;
+                });
+              } else {
+                if (game != null) {
+                  try {
+                    await userDocRef.set({
+                      'name': game!.name,
+                      'headerImage': game!.headerImage,
+                      'background': game!.background,
+                      'developers': game!.developers,
+                      'free': game!.isFree,
+                      'price': game!.isFree ? 0 : game!.final_formatted,
+                    });
+                    showSnackBar(context, 'Jeu ajouté aux likes avec succès');
+                  } catch (e) {
+                    showSnackBar(context, "Erreur pendant l'ajout du jeu");
+                  }
+                  setState(() {
+                    isLiked = true;
+                  });
+                }
+              }
+            },
+            svgPath: isLiked ? VectorialImages.likeFull : VectorialImages.like,
           ),
           const SizedBox(width: 10),
           SvgClickableComponent(
-            onPressed: () {},
-            svgPath: VectorialImages.whishlist,
+            onPressed: () async {
+              final userDocRef = FirebaseFirestore.instance
+                  .collection('users')
+                  .doc(FirebaseAuth.instance.currentUser!.uid)
+                  .collection('wishlist')
+                  .doc(widget.appid);
+              final userDocSnapshot = await userDocRef.get();
+              if (userDocSnapshot.exists) {
+                try {
+                  await userDocRef.delete();
+                  showSnackBar(context,
+                      'Jeu retiré de la liste de souhaits avec succès');
+                } catch (e) {
+                  showSnackBar(context, 'Erreur pendant la suppression du jeu');
+                }
+                setState(() {
+                  isFavorited = false;
+                });
+              } else {
+                if (game != null) {
+                  try {
+                    await userDocRef.set({
+                      'name': game!.name,
+                      'headerImage': game!.headerImage,
+                      'background': game!.background,
+                      'developers': game!.developers,
+                      'free': game!.isFree,
+                      'price': game!.isFree ? 0 : game!.final_formatted,
+                    });
+                    showSnackBar(context,
+                        'Jeu ajouté à la liste de souhaits avec succès');
+                  } catch (e) {
+                    showSnackBar(context, "Erreur pendant l'ajout du jeu");
+                  }
+                  setState(() {
+                    isFavorited = true;
+                  });
+                }
+              }
+            },
+            svgPath: isFavorited
+                ? VectorialImages.whishlistFull
+                : VectorialImages.whishlist,
           ),
           const SizedBox(width: 15),
         ],
@@ -52,7 +166,7 @@ class _ProductPageState extends State<ProductPage> {
         future: _gameFuture,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            final game = snapshot.data!;
+            game = snapshot.data!;
             return FutureBuilder<List<Map<String, dynamic>>>(
               future: fetchGameReview(int.parse(widget.appid)),
               builder: (context, snapshot) {
@@ -69,7 +183,7 @@ class _ProductPageState extends State<ProductPage> {
                             child: Container(
                               decoration: BoxDecoration(
                                 image: DecorationImage(
-                                  image: NetworkImage(game.backgroundRaw),
+                                  image: NetworkImage(game!.backgroundRaw),
                                   fit: BoxFit.cover,
                                 ),
                               ),
@@ -83,17 +197,17 @@ class _ProductPageState extends State<ProductPage> {
                                   const EdgeInsets.symmetric(horizontal: 20.0),
                               child: GameDetailsSlider(
                                 appid: widget.appid,
-                                description: game.description,
+                                description: game!.description,
                               ),
                             ),
                           ),
                         ],
                       ),
                       DetailsCard(
-                        imagePath: game.background,
-                        gameName: game.name,
-                        publisherName: game.developers.join(', '),
-                        headerImage: game.headerImage,
+                        imagePath: game!.background,
+                        gameName: game!.name,
+                        publisherName: game!.developers.join(', '),
+                        headerImage: game!.headerImage,
                         rating: reviewScore,
                       ),
                     ],

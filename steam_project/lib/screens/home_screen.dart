@@ -70,7 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      'Les meilleures ventes',
+                      'Les jeux les plus joués',
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
