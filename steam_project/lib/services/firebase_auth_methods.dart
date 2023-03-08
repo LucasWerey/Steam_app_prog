@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 
 import '../utils/showSnackBar.dart';
 
-// youtube.com/watch?v=u8H652UY-L8&t=1214s
-
 class FirebaseAuthMethods {
   final FirebaseAuth _auth;
   FirebaseAuthMethods(this._auth);
@@ -90,7 +88,7 @@ class FirebaseAuthMethods {
       showSnackBar(context, "Un email de réinitialisation a été envoyé");
       Navigator.of(context).popUntil((route) => route.isFirst);
     } on FirebaseAuthException catch (e) {
-      showSnackBar(context, e.message!);
+      showSnackBar(context, 'Veuillez entrer une adresse email valide');
       Navigator.of(context).pop();
     }
   }

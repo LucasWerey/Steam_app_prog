@@ -107,6 +107,27 @@ class SignUpScreen extends State<SignUpPage> {
                   onPressed: signUpUser,
                   filled: true,
                 ),
+                const SizedBox(height: 10),
+                GestureDetector(
+                    child: TextButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: const Text(
+                          'Retour',
+                          style: TextStyle(
+                            shadows: [
+                              Shadow(
+                                  color: Color.fromARGB(255, 175, 184, 187),
+                                  offset: Offset(0, -2))
+                            ],
+                            color: Colors.transparent,
+                            decoration: TextDecoration.underline,
+                            decorationColor: Color.fromARGB(255, 175, 184, 187),
+                            decorationThickness: 1,
+                            decorationStyle: TextDecorationStyle.solid,
+                          ),
+                        ))),
               ]),
             ))));
   }
