@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:steam_project/components/searchbar.dart';
 import '../components/game_card.dart';
@@ -8,7 +7,6 @@ import '../services/api_service.dart';
 import '../services/firebase_auth_methods.dart';
 import '../components/hero.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:http/http.dart' as http;
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -26,51 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
     FirebaseAuthMethods(FirebaseAuth.instance).signOut(context);
   }
 
-// WE GET THE APP ID OF THE GAME
-/*  Future<void> fetchGame() async {
-    final response = await http.get(Uri.parse(
-        'https://api.steampowered.com/ISteamChartsService/GetMostPlayedGames/v1/?'));
-
-    if (response.statusCode == 200) {
-      final data = json.decode(response.body);
-      final ranks = data['response']['ranks'];
-
-      setState(() {
-        appIds = ranks.map<int>((rank) => rank['appid'] as int).toList();
-      });
-    } else {
-      throw Exception('Failed to load app IDs');
-    }
-  }*/
-
-// WE GET THE DETAILS OF THE GAME
-  /* Future<Map<String, dynamic>> fetchAppDetails(int appId) async {
-    final response = await http.get(Uri.parse(
-        'https://store.steampowered.com/api/appdetails?appids=$appId'));
-
-    if (response.statusCode == 200) {
-      final data = json.decode(response.body);
-      final appDetails = data['$appId']['data'];
-
-      return {
-        'name': appDetails['name'],
-        'image': appDetails['header_image'],
-        'background': appDetails['background'],
-        'developers': appDetails['developers'],
-        'free': appDetails['is_free'] == true
-            ? 'Gratuit'
-            : appDetails['price_overview']['final_formatted'],
-      };
-    } else {
-      throw Exception('Failed to load app details');
-    }
-  }*/
-
   @override
-  /* void initState() {
-    super.initState();
-    fetchGame();
-  }*/
   void initState() {
     super.initState();
     fetchAppIds().then((ids) {

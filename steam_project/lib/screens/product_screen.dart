@@ -3,6 +3,10 @@ import 'package:flutter_svg/svg.dart';
 import 'package:steam_project/model/game.dart';
 import 'package:steam_project/resources/resources.dart';
 import 'package:steam_project/services/api_service.dart';
+import 'package:steam_project/components/slider_details.dart';
+
+import '../components/buttons/svg_button.dart';
+import '../components/details_game_card.dart';
 
 class ProductPage extends StatefulWidget {
   final String appid;
@@ -31,14 +35,16 @@ class _ProductPageState extends State<ProductPage> {
         title: const Text('Détails du jeu'),
         backgroundColor: const Color(0xFF1a2025),
         actions: <Widget>[
-          IconButton(
-            icon: SvgPicture.asset(VectorialImages.like),
+          SvgClickableComponent(
             onPressed: () {},
+            svgPath: VectorialImages.like,
           ),
-          IconButton(
-            icon: SvgPicture.asset(VectorialImages.whishlist),
+          const SizedBox(width: 10),
+          SvgClickableComponent(
             onPressed: () {},
+            svgPath: VectorialImages.whishlist,
           ),
+          const SizedBox(width: 15),
         ],
       ),
       body: FutureBuilder<Game>(
@@ -46,14 +52,14 @@ class _ProductPageState extends State<ProductPage> {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             final game = snapshot.data!;
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
+            return Stack(
               children: [
-                Expanded(
-                  flex: 5,
-                  child: Stack(
-                    children: [
-                      Container(
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Expanded(
+                      flex: 5,
+                      child: Container(
                         decoration: BoxDecoration(
                           image: DecorationImage(
                             image: NetworkImage(game.backgroundRaw),
@@ -61,104 +67,31 @@ class _ProductPageState extends State<ProductPage> {
                           ),
                         ),
                       ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 50),
-                Expanded(
-                  flex: 5,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Expanded(
-                              flex: 1,
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  setState(() {
-                                    _currentTab = 0;
-                                  });
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: _currentTab == 0
-                                      ? const Color(0xFF636AF6)
-                                      : const Color(0xFF1a2025),
-                                  shape: const RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.horizontal(
-                                      left: Radius.circular(3.54),
-                                    ),
-                                  ),
-                                  side: const BorderSide(
-                                      color: Color(0xFF636AF6)),
-                                ),
-                                child: const Text(
-                                  'DESCRIPTION',
-                                  style: TextStyle(fontSize: 20),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  setState(() {
-                                    _currentTab = 1;
-                                  });
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: _currentTab == 1
-                                      ? const Color(0xFF636AF6)
-                                      : const Color(0xFF1a2025),
-                                  shape: const RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.horizontal(
-                                      right: Radius.circular(3.54),
-                                    ),
-                                  ),
-                                  side: const BorderSide(
-                                      color: Color(0xFF636AF6)),
-                                ),
-                                child: const Text(
-                                  'AVIS',
-                                  style:  TextStyle(fontSize: 20),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 20),
-                        _currentTab == 0
-                            ? Center(
-                                child: Text(
-                                  game.shortDescription,
-                                  style: const TextStyle(
-                                    fontSize: 20,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              )
-                            : const Center(
-                                child: Text(
-                                  'Avis sur le jeu',
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ),
-                      ],
                     ),
-                  ),
-                )
+                    const SizedBox(height: 50),
+                    Expanded(
+                      flex: 5,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                        child: GameDetailsSlider(
+                          appid: widget.appid,
+                          description: game.shortDescription,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                DetailsCard(
+                  imagePath: game.background,
+                  gameName: game.name,
+                  publisherName: game.developers.join(', '),
+                  headerImage: game.headerImage,
+                ),
               ],
             );
           } else if (snapshot.hasError) {
             return Text('${snapshot.error}');
           }
-
           return const Center(
             child: CircularProgressIndicator(),
           );

@@ -96,9 +96,12 @@ class GameCard extends StatelessWidget {
                 width: 80,
                 height: 100,
                 decoration: const BoxDecoration(
-                  color: Color(0xFF636AF6),
+                  color: Color.fromARGB(255, 99, 106, 246),
                 ),
                 child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color.fromARGB(255, 99, 106, 246),
+                  ),
                   onPressed: () {
                     Navigator.push(
                       context,

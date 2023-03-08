@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../screens/product_screen.dart';
+
 class CustomComponent extends StatelessWidget {
   final String title;
   final String description;
@@ -65,7 +67,15 @@ class CustomComponent extends StatelessWidget {
                   ),
                   const SizedBox(height: 15),
                   ElevatedButton(
-                    onPressed: onPressed,
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              const ProductPage(appid: '990080'),
+                        ),
+                      );
+                    },
                     style: ElevatedButton.styleFrom(
                       minimumSize: const Size(165, 35),
                       shape: RoundedRectangleBorder(

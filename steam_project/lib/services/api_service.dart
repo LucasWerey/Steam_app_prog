@@ -67,3 +67,30 @@ Future<Game> fetchGame(int appId) async {
     throw Exception('Failed to fetch game');
   }
 }
+
+Future<List<Map<String, dynamic>>> fetchGameReview(int appId) async {
+  final res = await http.get(
+      Uri.parse('https://store.steampowered.com/appreviews/$appId?json=1'));
+  if (res.statusCode == 200) {
+    final data = json.decode(res.body);
+    final reviews = data['reviews'];
+    final querySummary = data['query_summary'];
+    final reviewSocre = querySummary['review_score'];
+    final reviewSocreDesc = querySummary['review_score_desc'];
+    final result = <Map<String, dynamic>>[];
+    for (final review in reviews) {
+      final authorId = review['author']['steamid'];
+      final reviewText = review['review'];
+      result.add({
+        'steamid': authorId,
+        'review_score': reviewSocre,
+        'review_score_desc': reviewSocreDesc,
+        'review': reviewText,
+      });
+    }
+    return result;
+  } else {
+    throw Exception('Failed to fetch game reviews');
+  }
+}
+
