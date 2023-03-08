@@ -7,7 +7,7 @@ class GameCard extends StatelessWidget {
   final String backgroundImage;
   final String gameImage;
   final List gameEditor;
-  final bool free;
+  final String free;
 
   const GameCard({
     required this.appId,
@@ -80,7 +80,7 @@ class GameCard extends StatelessWidget {
                       ),
                       const SizedBox(height: 8),
                       Text(
-                        free ? 'Gratuit' : 'Payant',
+                        free,
                         style: const TextStyle(
                           fontSize: 12,
                           color: Colors.white,

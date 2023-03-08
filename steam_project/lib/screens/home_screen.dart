@@ -56,7 +56,9 @@ class _HomeScreenState extends State<HomeScreen> {
         'image': appDetails['header_image'],
         'background': appDetails['background'],
         'developers': appDetails['developers'],
-        'free': appDetails['is_free'],
+        'free': appDetails['is_free'] == true
+            ? 'Gratuit'
+            : appDetails['price_overview']['final_formatted'],
       };
     } else {
       throw Exception('Failed to load app details');
@@ -130,8 +132,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             final gameImage = snapshot.data!['image'];
                             final background = snapshot.data!['background'];
                             final dev = snapshot.data!['developers'];
-                            final bool free =
-                                snapshot.data!['free'] ? true : false;
+                            final free = snapshot.data!['free'];
                             return GameCard(
                               appId: appIds[index].toString(),
                               gameName: gameName,
