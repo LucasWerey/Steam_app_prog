@@ -24,14 +24,16 @@ Future<Map<String, dynamic>> fetchAppDetails(int appId) async {
     final data = json.decode(response.body);
     final appDetails = data['$appId']['data'];
 
+    final priceOverview = appDetails['price_overview'];
+    final price =
+        priceOverview != null ? priceOverview['final_formatted'] : 'N/A';
+
     return {
-      'name': appDetails['name'],
+      'name': appDetails['name'] ?? 'N/A',
       'image': appDetails['header_image'],
       'background': appDetails['background'],
       'developers': appDetails['developers'],
-      'free': appDetails['is_free'] == true
-          ? 'Gratuit'
-          : appDetails['price_overview']['final_formatted'],
+      'free': appDetails['is_free'] == true ? 'Gratuit' : price
     };
   } else {
     throw Exception('Failed to load app details');
@@ -48,7 +50,9 @@ Future<Game> fetchGame(int appId) async {
 
     String? final_formatted;
     if (!isFree) {
-      final_formatted = json['price_overview']['final_formatted'];
+      final_formatted = json['price_overview'] != null
+          ? json['price_overview']['final_formatted']
+          : 'N/A';
     }
 
     return Game(
@@ -60,7 +64,7 @@ Future<Game> fetchGame(int appId) async {
       headerImage: json['header_image'],
       developers: List<String>.from(json['developers']),
       backgroundRaw: json['background_raw'],
-      background: json['background'],
+      background: json['background'] ?? '',
       final_formatted: final_formatted,
     );
   } else {
@@ -93,4 +97,3 @@ Future<List<Map<String, dynamic>>> fetchGameReview(int appId) async {
     throw Exception('Failed to fetch game reviews');
   }
 }
-

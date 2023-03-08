@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:steam_project/components/review_card.dart';
 import 'package:steam_project/services/api_service.dart';
-import '../model/game.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 
 class GameDetailsSlider extends StatefulWidget {
   final String appid;
@@ -93,12 +94,21 @@ class _GameDetailsSliderState extends State<GameDetailsSlider> {
         ),
         const SizedBox(height: 20),
         _currentTab == 0
-            ? Center(
-                child: Text(
-                  widget.description,
-                  style: const TextStyle(
-                    fontSize: 20,
-                    color: Colors.white,
+            ? Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Html(
+                        data: widget.description,
+                        style: {
+                          'body': Style(
+                            fontSize: FontSize(16),
+                            color: Colors.white,
+                            alignment: Alignment.center,
+                          ),
+                        },
+                      )
+                    ],
                   ),
                 ),
               )

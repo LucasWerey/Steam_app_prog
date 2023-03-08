@@ -83,7 +83,7 @@ class _ProductPageState extends State<ProductPage> {
                                   const EdgeInsets.symmetric(horizontal: 20.0),
                               child: GameDetailsSlider(
                                 appid: widget.appid,
-                                description: game.shortDescription,
+                                description: game.description,
                               ),
                             ),
                           ),
