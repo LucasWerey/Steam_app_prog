@@ -1,7 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-
 import '../resources/resources.dart';
 import '../services/firebase_auth_methods.dart';
 import 'buttons/svg_button.dart';
@@ -43,11 +41,21 @@ class TopBar extends StatelessWidget {
             const Spacer(),
             Padding(
               padding: const EdgeInsets.only(right: 20.0),
-              child: SvgPicture.asset(VectorialImages.like),
+              child: SvgClickableComponent(
+                svgPath: VectorialImages.like,
+                onPressed: () {
+                  Navigator.pushNamed(context, '/like');
+                },
+              ),
             ),
             Padding(
               padding: const EdgeInsets.only(right: 20.0),
-              child: SvgPicture.asset(VectorialImages.whishlist),
+              child: SvgClickableComponent(
+                svgPath: VectorialImages.whishlist,
+                onPressed: () {
+                  Navigator.pushNamed(context, '/wishlist');
+                },
+              ),
             ),
             Padding(
               padding: const EdgeInsets.only(right: 20.0),

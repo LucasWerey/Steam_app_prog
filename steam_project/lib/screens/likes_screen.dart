@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import '../../resources/resources.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../components/buttons/svg_button.dart';
+
 class LikesPage extends StatelessWidget {
   LikesPage({super.key});
 
@@ -40,7 +42,12 @@ class LikesPage extends StatelessWidget {
                         const SizedBox(height: 20),
                         Row(children: [
                           const SizedBox(width: 12),
-                          SvgPicture.asset(VectorialImages.close),
+                          SvgClickableComponent(
+                            svgPath: VectorialImages.close,
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                          ),
                           const SizedBox(width: 16),
                           const Text('Mes likes',
                               style: TextStyle(

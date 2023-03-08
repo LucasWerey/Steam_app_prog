@@ -1,12 +1,13 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:steam_project/components/searchbar.dart';
-import '../components/buttons/svg_button.dart';
+import '../components/game_card.dart';
 import '../components/topbar.dart';
 import '../resources/resources.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import '../services/firebase_auth_methods.dart';
 import '../components/hero.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:http/http.dart' as http;
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -18,9 +19,54 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final searchController = TextEditingController();
+  List<int> appIds = [];
 
   void signOut() {
     FirebaseAuthMethods(FirebaseAuth.instance).signOut(context);
+  }
+
+// WE GET THE APP ID OF THE GAME
+  Future<void> fetchGame() async {
+    final response = await http.get(Uri.parse(
+        'https://api.steampowered.com/ISteamChartsService/GetMostPlayedGames/v1/?'));
+
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body);
+      final ranks = data['response']['ranks'];
+
+      setState(() {
+        appIds = ranks.map<int>((rank) => rank['appid'] as int).toList();
+      });
+    } else {
+      throw Exception('Failed to load app IDs');
+    }
+  }
+
+// WE GET THE DETAILS OF THE GAME
+  Future<Map<String, dynamic>> fetchAppDetails(int appId) async {
+    final response = await http.get(Uri.parse(
+        'https://store.steampowered.com/api/appdetails?appids=$appId'));
+
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body);
+      final appDetails = data['$appId']['data'];
+
+      return {
+        'name': appDetails['name'],
+        'image': appDetails['header_image'],
+        'background': appDetails['background'],
+        'developers': appDetails['developers'],
+        'free': appDetails['is_free'],
+      };
+    } else {
+      throw Exception('Failed to load app details');
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    fetchGame();
   }
 
   @override
@@ -53,6 +99,58 @@ class _HomeScreenState extends State<HomeScreen> {
                   imagePath: Images.heroImg,
                   onPressed: () {},
                 ),
+                const SizedBox(height: 10),
+                const Padding(
+                  padding: EdgeInsets.only(left: 20),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      'Les meilleures ventes',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                        fontFamily: 'Proxima',
+                        decoration: TextDecoration.underline,
+                        decorationThickness: 4,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 10),
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: appIds.length,
+                    itemBuilder: (context, index) {
+                      return FutureBuilder<Map<String, dynamic>>(
+                        future: fetchAppDetails(appIds[index]),
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            final gameName = snapshot.data!['name'];
+                            final gameImage = snapshot.data!['image'];
+                            final background = snapshot.data!['background'];
+                            final dev = snapshot.data!['developers'];
+                            final bool free =
+                                snapshot.data!['free'] ? true : false;
+                            return GameCard(
+                              appId: appIds[index].toString(),
+                              gameName: gameName,
+                              gameImage: gameImage,
+                              backgroundImage: background,
+                              gameEditor: dev,
+                              free: free,
+                            );
+                          } else if (snapshot.hasError) {
+                            return Text('Error: ${snapshot.error}');
+                          } else {
+                            return const CircularProgressIndicator();
+                          }
+                        },
+                      );
+                    },
+                  ),
+                ),
+                const SizedBox(height: 10),
               ],
             ),
           ),

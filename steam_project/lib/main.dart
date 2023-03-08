@@ -3,8 +3,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:steam_project/screens/home_screen.dart';
+import 'package:steam_project/screens/likes_screen.dart';
 import 'package:steam_project/screens/login_screen.dart';
 import 'package:steam_project/screens/lostpass_screen.dart';
+import 'package:steam_project/screens/wishlist_screen.dart';
 import 'package:steam_project/services/firebase_auth_methods.dart';
 import 'firebase_options.dart';
 import './screens/signup_screen.dart';
@@ -39,6 +41,8 @@ class MyApp extends StatelessWidget {
         routes: <String, WidgetBuilder>{
           "/signup": (BuildContext context) => const SignUpPage(),
           "/fpassword": (BuildContext context) => const Fpass(),
+          "/wishlist": (BuildContext context) => WishlistPage(),
+          "/like": (BuildContext context) => LikesPage(),
         },
       ),
     );
