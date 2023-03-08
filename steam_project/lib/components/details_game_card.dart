@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:steam_project/components/rating_stars.dart';
 
 class DetailsCard extends StatelessWidget {
   const DetailsCard({
@@ -7,12 +8,14 @@ class DetailsCard extends StatelessWidget {
     required this.publisherName,
     required this.imagePath,
     required this.headerImage,
+    required this.rating,
   }) : super(key: key);
 
   final String gameName;
   final String publisherName;
   final String imagePath;
   final String headerImage;
+  final int? rating;
 
   @override
   Widget build(BuildContext context) {
@@ -63,6 +66,8 @@ class DetailsCard extends StatelessWidget {
                       color: Colors.white,
                     ),
                   ),
+                  const SizedBox(height: 5),
+                  RatingStar(rate: rating!.toDouble(), starsNumber: 5)
                 ],
               ),
             ),
