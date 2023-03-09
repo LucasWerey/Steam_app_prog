@@ -26,6 +26,23 @@ class _HomeScreenState extends State<HomeScreen> {
     FirebaseAuthMethods(FirebaseAuth.instance).signOut(context);
   }
 
+  void _searchGames(String searchText) {
+    fetchAppIds().then((ids) {
+      List<int> filteredIds = [];
+      for (int id in ids) {
+        fetchAppDetails(id).then((appDetails) {
+          String name = appDetails['name'].toLowerCase();
+          if (name.contains(searchText.toLowerCase())) {
+            setState(() {
+              filteredIds.add(id);
+              appIds = filteredIds;
+            });
+          }
+        });
+      }
+    });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -56,6 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Search_Bar(
                   controller: searchController,
                   hintText: 'Rechercher un jeu...',
+                  onSubmitted: (text) => _searchGames(text),
                 ),
                 const SizedBox(height: 10),
                 CustomComponent(

@@ -16,6 +16,7 @@ Future<List<int>> fetchAppIds() async {
   }
 }
 
+
 Future<Map<String, dynamic>> fetchAppDetails(int appId) async {
   final response = await http.get(
       Uri.parse('https://store.steampowered.com/api/appdetails?appids=$appId'));
@@ -36,7 +37,7 @@ Future<Map<String, dynamic>> fetchAppDetails(int appId) async {
       'free': appDetails['is_free'] == true ? 'Gratuit' : price
     };
   } else {
-    throw Exception('Failed to load app details');
+    throw Exception('Failed to load app details for $appId');
   }
 }
 

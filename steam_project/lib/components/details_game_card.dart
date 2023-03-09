@@ -61,6 +61,7 @@ class DetailsCard extends StatelessWidget {
                   const SizedBox(height: 5),
                   Text(
                     publisherName,
+                    maxLines: 2,
                     style: const TextStyle(
                       fontSize: 14,
                       color: Colors.white,

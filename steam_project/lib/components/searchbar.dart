@@ -5,15 +5,14 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 // ignore: camel_case_types
 class Search_Bar extends StatelessWidget {
-  // ignore: prefer_typing_uninitialized_variables
-  final controller;
-  final String hintText; 
+  final TextEditingController controller;
+  final String hintText;
+  final Function(String) onSubmitted;
 
-
-  const Search_Bar({
-    super.key,
+  const Search_Bar({super.key, 
     required this.controller,
     required this.hintText,
+    required this.onSubmitted,
   });
 
   @override
@@ -28,6 +27,7 @@ class Search_Bar extends StatelessWidget {
               child: TextField(
                 textAlign: TextAlign.left,
                 controller: controller,
+                onSubmitted: onSubmitted,
                 style: const TextStyle(
                     color: Colors.white,
                     fontFamily: 'Proxima',

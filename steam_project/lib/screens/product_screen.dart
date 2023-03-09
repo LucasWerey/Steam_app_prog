@@ -173,7 +173,7 @@ class _ProductPageState extends State<ProductPage> {
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   final reviews = snapshot.data!;
-                  reviewScore = reviews[0]['review_score'].toDouble();
+                  reviewScore = reviews[0]['review_score'];
                   return Stack(
                     children: [
                       Column(
