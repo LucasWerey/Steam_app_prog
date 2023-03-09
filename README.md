@@ -10,11 +10,13 @@ En s'appuyant sur un Sketch nous avons dû réaliser une application mobile en f
 
 Afin de mener à bien notre projet nous avons utilisé les packages suivants : 
 ```
-* http: ^0.13.5       
-* json_serializable: ^6.6.1
-* provider: ^6.0.5
-* spider: ^4.0.0
-* cloud_firestore: ^4.4.4
-* firebase_auth: ^4.2.9
-* firebase_core: ^2.7.0
+http: ^0.13.5       
+json_serializable: ^6.6.1
+provider: ^6.0.5
+spider: ^4.0.0
+cloud_firestore: ^4.4.4
+firebase_auth: ^4.2.9
+firebase_core: ^2.7.0
+flutter_html: ^3.0.0-alpha.1
+flutter_svg: ^1.1.6
 ```
