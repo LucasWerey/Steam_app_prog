@@ -91,7 +91,7 @@ class _LikesPageState extends State<LikesPage> {
                                 ['background'],
                             gameEditor: snapshot.data.docs[index]['developers'],
                             free: snapshot.data.docs[index]['free']
-                                ? 'Free'
+                                ? 'Gratuit'
                                 : snapshot.data.docs[index]['price'],
                             gameImage: snapshot.data.docs[index]['headerImage'],
                           );
@@ -99,7 +99,33 @@ class _LikesPageState extends State<LikesPage> {
                       );
                     } else {
                       return Center(
-                          child: SvgPicture.asset(VectorialImages.emptyLikes));
+                        child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SvgClickableComponent(
+                                  svgPath: VectorialImages.emptyLikes,
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  }),
+                              const SizedBox(height: 50),
+                              const Text(
+                                  'Vous n’avez encore pas liké de contenu.',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontFamily: 'Proxima',
+                                    color: Colors.white,
+                                  )),
+                              const SizedBox(height: 10),
+                              const Text(
+                                'Cliquez sur le coeur pour en rajouter.',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontFamily: 'Proxima',
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ]),
+                      );
                     }
                   },
                 ),

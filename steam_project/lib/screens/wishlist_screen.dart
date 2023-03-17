@@ -91,7 +91,7 @@ class _WishListPageState extends State<WishListPage> {
                                 ['background'],
                             gameEditor: snapshot.data.docs[index]['developers'],
                             free: snapshot.data.docs[index]['free']
-                                ? 'Free'
+                                ? 'Gratuit'
                                 : snapshot.data.docs[index]['price'],
                             gameImage: snapshot.data.docs[index]['headerImage'],
                           );
@@ -99,8 +99,33 @@ class _WishListPageState extends State<WishListPage> {
                       );
                     } else {
                       return Center(
-                          child:
-                              SvgPicture.asset(VectorialImages.emptyWhishlist));
+                        child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                               SvgClickableComponent(
+                                  svgPath: VectorialImages.emptyWhishlist,
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  }),
+                              const SizedBox(height: 50),
+                              const Text(
+                                  'Vous n’avez encore pas liké de contenu.',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontFamily: 'Proxima',
+                                    color: Colors.white,
+                                  )),
+                              const SizedBox(height: 10),
+                              const Text(
+                                "Cliquez sur l'étoile pour en rajouter.",
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontFamily: 'Proxima',
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ]),
+                      );
                     }
                   },
                 ),
