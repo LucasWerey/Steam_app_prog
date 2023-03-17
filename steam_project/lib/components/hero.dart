@@ -2,20 +2,18 @@ import 'package:flutter/material.dart';
 
 import '../screens/product_screen.dart';
 
-class CustomComponent extends StatelessWidget {
+class HeroComponent extends StatelessWidget {
   final String title;
   final String description;
   final String backgroundImageUrl;
   final String imagePath;
-  final VoidCallback onPressed;
 
-  const CustomComponent({
+  const HeroComponent({
     super.key,
     required this.title,
     required this.description,
     required this.backgroundImageUrl,
     required this.imagePath,
-    required this.onPressed,
   });
 
   @override
@@ -41,11 +39,11 @@ class CustomComponent extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  const SizedBox(
+                   SizedBox(
                     width: 200,
                     child: Text(
-                      "Hogwarts Legacy : L'Héritage de Poudlard",
-                      style: TextStyle(
+                      title,
+                      style: const TextStyle(
                         color: Colors.white,
                         fontSize: 18.79,
                         fontWeight: FontWeight.bold,
@@ -54,11 +52,12 @@ class CustomComponent extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 20),
-                  const SizedBox(
+                   SizedBox(
                     width: 200,
                     child: Text(
-                      "Hogwarts Legacy est un RPG d'action-aventure immersif en monde ouvert.",
-                      style: TextStyle(
+                      description,
+                      
+                      style: const TextStyle(
                         color: Colors.white,
                         fontSize: 11.74,
                         fontFamily: 'Proxima',

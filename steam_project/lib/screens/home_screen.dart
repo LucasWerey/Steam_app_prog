@@ -76,13 +76,13 @@ class _HomeScreenState extends State<HomeScreen> {
                   onSubmitted: (text) => _searchGames(text),
                 ),
                 const SizedBox(height: 10),
-                CustomComponent(
-                  title: 'Title',
-                  description: 'Description',
+                const HeroComponent(
+                  title: "Hogwarts Legacy : L'Héritage de Poudlard",
+                  description:
+                      "Hogwarts Legacy est un RPG d'action-aventure immersif en monde ouvert.",
                   backgroundImageUrl:
                       'https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/990080\/page_bg_generated_v6b.jpg?t=1676412613',
                   imagePath: Images.heroImg,
-                  onPressed: () {},
                 ),
                 const SizedBox(height: 10),
                 const Padding(
