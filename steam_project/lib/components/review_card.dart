@@ -9,11 +9,8 @@ class ReviewCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context)
-          .size
-          .width, // élargir sur toute la largeur de l'écran
-      color: const Color(
-          0xFF1E262C), // changer la couleur d'arrière-plan en utilisant la couleur hexadécimale
+      width: MediaQuery.of(context).size.width,
+      color: const Color(0xFF1E262C),
       child: Card(
         color: const Color(0xFF1E262C),
         margin: const EdgeInsets.symmetric(horizontal: 20),
@@ -25,14 +22,18 @@ class ReviewCard extends StatelessWidget {
               Text(
                 username,
                 style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white),
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Proxima',
+                  color: Colors.white,
+                  decoration: TextDecoration.underline,
+                ),
               ),
               const SizedBox(height: 10),
               Text(text,
                   style: const TextStyle(
                     fontSize: 14,
+                    fontFamily: 'Proxima',
                     color: Colors.white,
                   )),
             ],

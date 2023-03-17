@@ -66,6 +66,7 @@ class GameCard extends StatelessWidget {
                         gameName,
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
+                          fontFamily: 'Proxima',
                           fontSize: 16,
                           color: Colors.white,
                         ),
@@ -77,6 +78,7 @@ class GameCard extends StatelessWidget {
                         textAlign: TextAlign.left,
                         style: const TextStyle(
                           fontSize: 12,
+                          fontFamily: 'Proxima',
                           color: Colors.white,
                         ),
                       ),
@@ -85,6 +87,7 @@ class GameCard extends StatelessWidget {
                         free,
                         style: const TextStyle(
                           fontSize: 12,
+                          fontFamily: 'Proxima',
                           color: Colors.white,
                         ),
                         textAlign: TextAlign.left,
@@ -115,6 +118,7 @@ class GameCard extends StatelessWidget {
                     'En savoir plus',
                     style: TextStyle(
                       fontSize: 16,
+                      fontFamily: 'Proxima',
                       color: Colors.white,
                     ),
                   ),

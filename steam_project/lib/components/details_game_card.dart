@@ -54,6 +54,7 @@ class DetailsCard extends StatelessWidget {
                     gameName,
                     style: const TextStyle(
                       fontSize: 16,
+                      fontFamily: 'Proxima',
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
                     ),
@@ -64,6 +65,7 @@ class DetailsCard extends StatelessWidget {
                     maxLines: 2,
                     style: const TextStyle(
                       fontSize: 14,
+                      fontFamily: 'Proxima',
                       color: Colors.white,
                     ),
                   ),
