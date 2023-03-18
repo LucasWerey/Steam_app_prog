@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:steam_project/components/searchbar.dart';
+import 'package:steam_project/utils/showSnackBar.dart';
 import '../components/game_card.dart';
 import '../components/topbar.dart';
 import '../resources/resources.dart';
@@ -26,19 +27,22 @@ class _HomeScreenState extends State<HomeScreen> {
     FirebaseAuthMethods(FirebaseAuth.instance).signOut(context);
   }
 
-  void _searchGames(String searchText) {
-    fetchAppIds().then((ids) {
+  Future<void> _searchGames(String searchText) async {
+    fetchFindGame(searchText).then((ids) async {
       List<int> filteredIds = [];
       for (int id in ids) {
-        fetchAppDetails(id).then((appDetails) {
+        await fetchAppDetails(id).then((appDetails) {
           String name = appDetails['name'].toLowerCase();
           if (name.contains(searchText.toLowerCase())) {
             setState(() {
               filteredIds.add(id);
-              appIds = filteredIds;
+              filteredIds;
             });
           }
         });
+      }
+      if (filteredIds.isEmpty) {
+        showSnackBar(context, 'Aucun résultat');
       }
     });
   }

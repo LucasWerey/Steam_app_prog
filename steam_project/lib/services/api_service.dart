@@ -16,7 +16,6 @@ Future<List<int>> fetchAppIds() async {
   }
 }
 
-
 Future<Map<String, dynamic>> fetchAppDetails(int appId) async {
   final response = await http.get(
       Uri.parse('https://store.steampowered.com/api/appdetails?appids=$appId'));
@@ -37,7 +36,8 @@ Future<Map<String, dynamic>> fetchAppDetails(int appId) async {
       'free': appDetails['is_free'] == true ? 'Gratuit' : price
     };
   } else {
-    throw Exception('Failed to load app details for $appId');
+    throw Exception(
+        'Failed to load app details for $appId : ${response.statusCode}');
   }
 }
 
@@ -96,5 +96,18 @@ Future<List<Map<String, dynamic>>> fetchGameReview(int appId) async {
     return result;
   } else {
     throw Exception('Failed to fetch game reviews');
+  }
+}
+
+// ignore: non_constant_identifier_names
+Future<List<int>> fetchFindGame(String GameName) async {
+  final response = await http.get(
+      Uri.parse('https://steamcommunity.com/actions/SearchApps/$GameName'));
+
+  if (response.statusCode == 200) {
+    final data = json.decode(response.body);
+    return data.map<int>((game) => int.parse(game['appid'])).toList();
+  } else {
+    throw Exception('Failed to load app IDs of $GameName');
   }
 }
