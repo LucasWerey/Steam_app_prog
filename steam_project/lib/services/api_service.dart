@@ -37,7 +37,7 @@ Future<Map<String, dynamic>> fetchAppDetails(int appId) async {
     };
   } else {
     throw Exception(
-        'Failed to load app details for $appId : ${response.statusCode}');
+        'Echec de chargement des détails du jeu $appId erreur : ${response.statusCode}');
   }
 }
 

@@ -36,12 +36,12 @@ class _HomeScreenState extends State<HomeScreen> {
           if (name.contains(searchText.toLowerCase())) {
             setState(() {
               filteredIds.add(id);
-              filteredIds;
+              appIds = filteredIds;
             });
           }
         });
       }
-      if (filteredIds.isEmpty) {
+      if (appIds.isEmpty) {
         showSnackBar(context, 'Aucun résultat');
       }
     });
@@ -55,6 +55,19 @@ class _HomeScreenState extends State<HomeScreen> {
         appIds = ids;
       });
     });
+    searchController.addListener(() {
+      _searchGames(searchController.text);
+    });
+  }
+
+  @override
+  void dispose() {
+    // Remove the listener when the screen is disposed
+    searchController.removeListener(() {
+      _searchGames(searchController.text);
+    });
+    searchController.dispose();
+    super.dispose();
   }
 
   @override
