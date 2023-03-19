@@ -20,7 +20,7 @@ class DetailsCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      top: MediaQuery.of(context).size.height * 0.33,
+      top: MediaQuery.of(context).size.height * 0.22,
       left: 20,
       child: Container(
         width: MediaQuery.of(context).size.width - 40,

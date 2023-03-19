@@ -180,7 +180,7 @@ class _ProductPageState extends State<ProductPage> {
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                           Expanded(
-                            flex: 5,
+                            flex: 3,
                             child: Container(
                               decoration: BoxDecoration(
                                 image: DecorationImage(
