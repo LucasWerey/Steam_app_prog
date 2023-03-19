@@ -99,7 +99,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       "Hogwarts Legacy est un RPG d'action-aventure immersif en monde ouvert.",
                   backgroundImageUrl:
                       'https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/990080\/page_bg_generated_v6b.jpg?t=1676412613',
-                  imagePath: Images.heroImg,
+                  imagePath: Images.hero,
                 ),
                 const SizedBox(height: 10),
                 const Padding(

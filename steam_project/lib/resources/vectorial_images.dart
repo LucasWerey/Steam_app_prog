@@ -9,10 +9,10 @@ class VectorialImages {
   static const String emptyWhishlist = 'assets/icones/empty_whishlist.svg';
   static const String like = 'assets/icones/like.svg';
   static const String likeFull = 'assets/icones/like_full.svg';
+  static const String power = 'assets/icones/power.svg';
   static const String search = 'assets/icones/search.svg';
   static const String search1 = 'assets/icones/search1.svg';
   static const String warning = 'assets/icones/warning.svg';
   static const String whishlist = 'assets/icones/whishlist.svg';
   static const String whishlistFull = 'assets/icones/whishlist_full.svg';
-  static const String power = 'assets/icones/power.svg';
 }

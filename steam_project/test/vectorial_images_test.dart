@@ -11,6 +11,7 @@ void main() {
     expect(File(VectorialImages.emptyWhishlist).existsSync(), true);
     expect(File(VectorialImages.like).existsSync(), true);
     expect(File(VectorialImages.likeFull).existsSync(), true);
+    expect(File(VectorialImages.power).existsSync(), true);
     expect(File(VectorialImages.search).existsSync(), true);
     expect(File(VectorialImages.search1).existsSync(), true);
     expect(File(VectorialImages.warning).existsSync(), true);

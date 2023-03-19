@@ -37,3 +37,8 @@ groups:
   - path: assets/icones
     class_name: VectorialImages
     types: [.svg]
+
+  - path: assets/gif
+    class_name: Gif
+    types: [.gif]
+    
