@@ -27,8 +27,17 @@ class _GameDetailsSliderState extends State<GameDetailsSlider> {
 
   Future<void> _fetchReviews() async {
     final reviews = await fetchGameReview(int.parse(widget.appid));
+    final updatedReviews = await Future.wait(reviews.map((review) async {
+      final steamId = review['steamid'];
+      final profile = await fetchSteamUser(steamId);
+      return {
+        ...review,
+        'personaName': profile.personaName,
+        'avatarUrl': profile.avatarUrl
+      };
+    }));
     setState(() {
-      _reviews = reviews;
+      _reviews = updatedReviews;
     });
   }
 
@@ -119,12 +128,13 @@ class _GameDetailsSliderState extends State<GameDetailsSlider> {
                       itemCount: _reviews.length,
                       itemBuilder: (context, index) {
                         if (index.isOdd) {
-                          return const SizedBox(height: 10); // Add SizedBox
+                          return const SizedBox(height: 10);
                         } else {
                           final review = _reviews[index];
                           return ReviewCard(
                             text: review['review'] ?? 'Review',
-                            username: review['steamid'] ?? 'Username',
+                            username: review['personaName'] ?? 'Username',
+                            avatarUrl: review['avatarUrl'] ?? 'test',
                           );
                         }
                       },

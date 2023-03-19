@@ -42,6 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
         });
       }
       if (appIds.isEmpty) {
+        // ignore: use_build_context_synchronously
         showSnackBar(context, 'Aucun résultat');
       }
     });

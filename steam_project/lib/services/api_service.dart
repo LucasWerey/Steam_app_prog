@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-
 import '../model/game.dart';
+import '../model/steam_user.dart';
 
 Future<List<int>> fetchAppIds() async {
   final response = await http.get(Uri.parse(
@@ -110,4 +110,15 @@ Future<List<int>> fetchFindGame(String GameName) async {
   } else {
     throw Exception('Failed to load app IDs of $GameName');
   }
+}
+
+Future<SteamUser> fetchSteamUser(String steamId) async {
+  const ApiKey = '5BB9F89B6982BB7D8D8E7B5FBE5FF77E';
+  final response = await http.get(Uri.parse(
+      'http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=$ApiKey&steamids=$steamId'));
+  final data = jsonDecode(response.body)['response']['players'][0];
+  return SteamUser(
+    personaName: data['personaname'] ?? 'Unknown',
+    avatarUrl: data['avatarfull'],
+  );
 }
