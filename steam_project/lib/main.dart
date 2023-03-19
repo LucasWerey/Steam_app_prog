@@ -2,10 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:steam_project/screens/home_screen.dart';
 import 'package:steam_project/screens/likes_screen.dart';
-import 'package:steam_project/screens/login_screen.dart';
 import 'package:steam_project/screens/lostpass_screen.dart';
+import 'package:steam_project/screens/splash_screen.dart';
 import 'package:steam_project/screens/wishlist_screen.dart';
 import 'package:steam_project/services/firebase_auth_methods.dart';
 import 'firebase_options.dart';
@@ -37,7 +36,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'firstRoute',
         debugShowCheckedModeBanner: false,
-        home: const AuthWrapper(),
+        home: const Splash(),
         routes: <String, WidgetBuilder>{
           "/signup": (BuildContext context) => const SignUpPage(),
           "/fpassword": (BuildContext context) => const Fpass(),
@@ -46,19 +45,5 @@ class MyApp extends StatelessWidget {
         },
       ),
     );
-  }
-}
-
-class AuthWrapper extends StatelessWidget {
-  const AuthWrapper({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final firebaseUser = context.watch<User?>();
-
-    if (firebaseUser != null) {
-      return const HomeScreen();
-    }
-    return const LoginPage();
   }
 }

@@ -5,9 +5,9 @@ import '../services/firebase_auth_methods.dart';
 import 'buttons/svg_button.dart';
 
 class TopBar extends StatelessWidget {
-  final Function onSignOutPressed; // Ajouter la fonction de rappel
+  final Function onSignOutPressed;
 
-  const TopBar({super.key, required this.onSignOutPressed}); // Modifier le constructeur
+  const TopBar({super.key, required this.onSignOutPressed}); 
 
   @override
   Widget build(BuildContext context) {

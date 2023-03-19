@@ -2,6 +2,8 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import '../screens/home_screen.dart';
+import '../screens/login_screen.dart';
 import '../utils/showSnackBar.dart';
 
 class FirebaseAuthMethods {
@@ -27,7 +29,9 @@ class FirebaseAuthMethods {
       await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
       showSnackBar(context, 'Compte créé avec succès');
-      Navigator.of(context).popUntil((route) => route.isFirst);
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => const HomeScreen()),
+          (route) => false);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'email-already-in-use') {
         showSnackBar(context, 'Cet email est déjà utilisé');
@@ -60,7 +64,9 @@ class FirebaseAuthMethods {
         barrierDismissible: false);
     try {
       await _auth.signInWithEmailAndPassword(email: email, password: password);
-      Navigator.of(context).popUntil((route) => route.isFirst);
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => const HomeScreen()),
+          (route) => false);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         showSnackBar(context, 'Aucun utilisateur trouvé pour cet email');
@@ -89,7 +95,9 @@ class FirebaseAuthMethods {
         barrierDismissible: false);
     try {
       await _auth.signOut();
-      Navigator.of(context).popUntil((route) => route.isFirst);
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => LoginPage()),
+          (route) => false);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'network-request-failed') {
         showSnackBar(context, 'Veuillez vérifier votre connexion internet');

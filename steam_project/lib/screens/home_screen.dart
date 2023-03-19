@@ -63,7 +63,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void dispose() {
-    // Remove the listener when the screen is disposed
     searchController.removeListener(() {
       _searchGames(searchController.text);
     });

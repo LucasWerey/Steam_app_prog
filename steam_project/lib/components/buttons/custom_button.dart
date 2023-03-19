@@ -30,10 +30,8 @@ class MyButton extends StatelessWidget {
             width: 2,
           ),
         ),
-        child: OutlinedButton(
-          // Within the `FirstScreen` widget
+        child: OutlinedButton( 
           onPressed: () {
-            // Navigate to the second screen using a named route.
             Navigator.pushNamed(context, '/$page');
           },
           style: OutlinedButton.styleFrom(
