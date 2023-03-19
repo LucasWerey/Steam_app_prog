@@ -20,3 +20,7 @@ firebase_core: ^2.7.0
 flutter_html: ^3.0.0-alpha.1
 flutter_svg: ^1.1.6
 ```
+
+## **Ancien projet**
+
+Durant la conception de notre projet nous avons du refaire un repository git. Toutefois vous pouvez retrouver l'ensemble des éléments faits précédemment ici : https://github.com/LucasWerey/Projet_Prog_Mobile. Dans ce dossier il y a l'ensemble des écrans de la maquette.
