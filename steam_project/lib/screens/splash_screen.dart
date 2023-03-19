@@ -13,7 +13,7 @@ class Splash extends StatelessWidget {
   Widget build(BuildContext context) {
     final firebaseUser = context.watch<User?>();
 
-    Future.delayed(const Duration(milliseconds: 2500), () {
+    Future.delayed(const Duration(milliseconds: 1500), () {
       if (firebaseUser != null) {
         Navigator.pushReplacement(
           context,
@@ -35,7 +35,7 @@ class Splash extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: const [
               Image(
-                image: AssetImage(Gif.loader),
+                image: AssetImage('assets/gif/loader.gif'),
                 width: 100,
                 height: 100,
               ),
