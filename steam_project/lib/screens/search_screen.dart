@@ -7,7 +7,8 @@ import '../services/api_service.dart';
 import '../utils/showSnackBar.dart';
 
 class SearchPage extends StatefulWidget {
-  const SearchPage({Key? key}) : super(key: key);
+  final String? searchText;
+  const SearchPage({Key? key, this.searchText}) : super(key: key);
 
   @override
   _SearchPageState createState() => _SearchPageState();
@@ -38,10 +39,10 @@ class _SearchPageState extends State<SearchPage> {
   @override
   void initState() {
     super.initState();
+    searchController.text = widget.searchText ?? '';
     searchController.addListener(() {
       _searchGames(searchController.text);
     });
-    // Donner le focus à la barre de recherche lors du chargement de la page
     Future.delayed(Duration.zero, () {
       _focusNode.requestFocus();
     });
@@ -60,39 +61,68 @@ class _SearchPageState extends State<SearchPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Recherche'),
+        title: const Text('Recherche'),
         backgroundColor: const Color.fromARGB(255, 30, 38, 44),
         elevation: 0,
       ),
-      body: Column(
-        children: [
-          Search_Bar(
-            controller: searchController,
-            focusNode: _focusNode,
-            hintText: 'Rechercher un jeu...',
-            onSubmitted: (text) {
-              if (text.isNotEmpty) {
-                _searchGames(text);
-              }
-            },
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage(Images.backgroundEmpty),
+            fit: BoxFit.cover,
           ),
-          Expanded(
-            child: ListView.builder(
-              itemCount: _filteredGames.length,
-              itemBuilder: (context, index) {
-                final game = _filteredGames[index];
-                return GameCard(
-                  appId: game.steam_appid,
-                  gameName: game.name,
-                  gameImage: game.headerImage,
-                  backgroundImage: game.background,
-                  free: game.isFree.toString(),
-                  gameEditor: game.developers,
-                );
+        ),
+        child: Column(
+          children: [
+            const SizedBox(height: 12),
+            Search_Bar(
+              controller: searchController,
+              focusNode: _focusNode,
+              hintText: 'Rechercher un jeu...',
+              onSubmitted: (text) {
+                if (text.isNotEmpty) {
+                  _searchGames(text);
+                }
               },
             ),
-          ),
-        ],
+            const SizedBox(height: 12),
+            Padding(
+              padding: const EdgeInsets.only(left: 20),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Nombre de résultats : ${_filteredGames.length}',
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    fontFamily: 'Proxima',
+                    decoration: TextDecoration.underline,
+                    decorationThickness: 4,
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(height: 12),
+            Expanded(
+              child: ListView.builder(
+                itemCount: _filteredGames.length,
+                itemBuilder: (context, index) {
+                  final game = _filteredGames[index];
+                  return GameCard(
+                    appId: game.steam_appid,
+                    gameName: game.name,
+                    gameImage: game.headerImage,
+                    backgroundImage: game.background,
+                    free: game.isFree.toString(),
+                    gameEditor: game.developers,
+                    price: game.final_formatted,
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

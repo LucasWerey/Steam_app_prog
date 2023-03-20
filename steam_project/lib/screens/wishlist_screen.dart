@@ -89,10 +89,10 @@ class _WishListPageState extends State<WishListPage> {
                             backgroundImage: snapshot.data.docs[index]
                                 ['background'],
                             gameEditor: snapshot.data.docs[index]['developers'],
-                            free: snapshot.data.docs[index]['free']
-                                ? 'Gratuit'
-                                : snapshot.data.docs[index]['price'],
+                            free: snapshot.data.docs[index]['free'].toString(),
                             gameImage: snapshot.data.docs[index]['headerImage'],
+                            price:
+                                snapshot.data.docs[index]['price'].toString(),
                           );
                         },
                       );
@@ -101,7 +101,7 @@ class _WishListPageState extends State<WishListPage> {
                         child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                               SvgClickableComponent(
+                              SvgClickableComponent(
                                   svgPath: VectorialImages.emptyWhishlist,
                                   onPressed: () {
                                     Navigator.pop(context);

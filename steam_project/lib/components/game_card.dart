@@ -9,6 +9,7 @@ class GameCard extends StatelessWidget {
   final String gameImage;
   final List gameEditor;
   final String free;
+  final String? price;
 
   const GameCard({
     required this.appId,
@@ -17,6 +18,7 @@ class GameCard extends StatelessWidget {
     required this.gameEditor,
     required this.free,
     required this.gameImage,
+    required this.price,
     Key? key,
   }) : super(key: key);
 
@@ -84,7 +86,7 @@ class GameCard extends StatelessWidget {
                       ),
                       const SizedBox(height: 8),
                       Text(
-                        free,
+                        free == 'true' ? 'Gratuit' : price!,
                         style: const TextStyle(
                           fontSize: 12,
                           fontFamily: 'Proxima',

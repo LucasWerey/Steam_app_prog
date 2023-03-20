@@ -29,12 +29,14 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> _searchGamesPage() async {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const SearchPage(),
-      ),
-    );
+    if (searchController.text.isNotEmpty) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => SearchPage(searchText: searchController.text),
+        ),
+      );
+    }
   }
 
   @override
@@ -122,6 +124,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             gameImage: game.headerImage,
                             backgroundImage: game.background,
                             free: game.isFree.toString(),
+                            price : game.final_formatted,
                             gameEditor: game.developers,
                           );
                         } else if (snapshot.hasError) {
