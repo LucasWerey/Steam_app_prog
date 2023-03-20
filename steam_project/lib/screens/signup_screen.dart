@@ -18,6 +18,7 @@ class SignUpScreen extends State<SignUpPage> {
   final password2Controller = TextEditingController();
   final emailController = TextEditingController();
   bool passError = false;
+  bool mailError = false;
 
   @override
   void dispose() {
@@ -26,11 +27,23 @@ class SignUpScreen extends State<SignUpPage> {
     super.dispose();
   }
 
+  bool validateEmail(String email) {
+    final RegExp regex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+    return regex.hasMatch(email);
+  }
+
   void signUpUser() async {
     if (passwordController.text != password2Controller.text) {
       showSnackBar(context, 'Les mots de passe ne correspondent pas');
       setState(() {
         passError = true;
+        mailError = false;
+      });
+    } else if (!validateEmail(emailController.text)) {
+      showSnackBar(context, "Veuillez vérifier l'adresse mail");
+      setState(() {
+        mailError = true;
+        passError = false;
       });
     } else {
       FirebaseAuthMethods(FirebaseAuth.instance).signUpWithEmail(
@@ -92,7 +105,7 @@ class SignUpScreen extends State<SignUpPage> {
                   controller: emailController,
                   keyboardType: TextInputType.emailAddress,
                   obscureText: false,
-                  showError: false,
+                  showError: mailError,
                 ),
                 // Password
                 const SizedBox(height: 10),
