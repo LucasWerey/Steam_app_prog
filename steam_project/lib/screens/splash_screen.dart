@@ -19,7 +19,7 @@ class Splash extends StatelessWidget {
           context,
           MaterialPageRoute(builder: (context) => const HomeScreen()),
         );
-      } else {
+      } else if (firebaseUser == null) {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => const LoginPage()),

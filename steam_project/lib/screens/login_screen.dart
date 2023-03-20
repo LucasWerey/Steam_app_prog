@@ -79,6 +79,7 @@ class _LoginPageState extends State<LoginPage> {
                     controller: _emailController,
                     keyboardType: TextInputType.emailAddress,
                     obscureText: false,
+                    showError: false,
                   ),
 
                   // PASSWORD
@@ -87,6 +88,7 @@ class _LoginPageState extends State<LoginPage> {
                     hintText: 'Mot de passe',
                     controller: _passwordController,
                     obscureText: true,
+                    showError: false,
                   ),
 
                   //LOGIN BUTTON

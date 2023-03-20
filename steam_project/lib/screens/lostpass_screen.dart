@@ -71,6 +71,7 @@ class _Fpass extends State<Fpass> {
                     controller: emailController,
                     keyboardType: TextInputType.emailAddress,
                     obscureText: false,
+                    showError: false,
                   ),
                   // Resend button
                   const SizedBox(height: 70),

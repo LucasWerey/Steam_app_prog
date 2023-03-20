@@ -17,6 +17,7 @@ class SignUpScreen extends State<SignUpPage> {
   final passwordController = TextEditingController();
   final password2Controller = TextEditingController();
   final emailController = TextEditingController();
+  bool passError = false;
 
   @override
   void dispose() {
@@ -28,6 +29,9 @@ class SignUpScreen extends State<SignUpPage> {
   void signUpUser() async {
     if (passwordController.text != password2Controller.text) {
       showSnackBar(context, 'Les mots de passe ne correspondent pas');
+      setState(() {
+        passError = true;
+      });
     } else {
       FirebaseAuthMethods(FirebaseAuth.instance).signUpWithEmail(
           email: emailController.text,
@@ -79,6 +83,7 @@ class SignUpScreen extends State<SignUpPage> {
                   hintText: "Nom d'utilisateur",
                   controller: usernameController,
                   obscureText: false,
+                  showError: false,
                 ),
                 // Email
                 const SizedBox(height: 10),
@@ -87,6 +92,7 @@ class SignUpScreen extends State<SignUpPage> {
                   controller: emailController,
                   keyboardType: TextInputType.emailAddress,
                   obscureText: false,
+                  showError: false,
                 ),
                 // Password
                 const SizedBox(height: 10),
@@ -94,6 +100,7 @@ class SignUpScreen extends State<SignUpPage> {
                   hintText: "Mot de passe",
                   controller: passwordController,
                   obscureText: true,
+                  showError: passError,
                 ),
                 // Verif Password
                 const SizedBox(height: 30),
@@ -101,6 +108,7 @@ class SignUpScreen extends State<SignUpPage> {
                   hintText: "Vérification du mot de passe",
                   controller: password2Controller,
                   obscureText: true,
+                  showError: false,
                 ),
 
                 const SizedBox(height: 75),
