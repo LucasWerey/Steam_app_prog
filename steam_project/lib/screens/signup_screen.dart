@@ -40,7 +40,7 @@ class SignUpScreen extends State<SignUpPage> {
         mailError = false;
       });
     } else if (!validateEmail(emailController.text)) {
-      showSnackBar(context, "Veuillez vérifier l'adresse mail");
+      showSnackBar(context, 'Veuillez entrer une adresse email valide');
       setState(() {
         mailError = true;
         passError = false;

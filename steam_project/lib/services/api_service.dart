@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:steam_project/utils/showSnackBar.dart';
 import '../model/game.dart';
 import '../model/steam_user.dart';
 
@@ -57,14 +58,14 @@ Future<Game> fetchGame(int appId) async {
     }
 
     return Game(
-      steam_appid: json['steam_appid'].toString(),
-      name: json['name'],
+      steam_appid: json['steam_appid']?.toString() ?? '',
+      name: json['name'] ?? '',
       isFree: isFree,
-      shortDescription: json['short_description'],
-      description: json['about_the_game'],
-      headerImage: json['header_image'],
-      developers: List<String>.from(json['developers']),
-      backgroundRaw: json['background_raw'],
+      shortDescription: json['short_description'] ?? '',
+      description: json['about_the_game'] ?? '',
+      headerImage: json['header_image'] ?? '',
+      developers: List<String>.from(json['developers'] ?? []),
+      backgroundRaw: json['background_raw'] ?? '',
       background: json['background'] ?? '',
       final_formatted: finalFormatted,
     );
