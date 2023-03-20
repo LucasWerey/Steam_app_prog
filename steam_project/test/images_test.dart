@@ -8,5 +8,6 @@ void main() {
     expect(File(Images.backgroundEmpty).existsSync(), true);
     expect(File(Images.backgroundImg).existsSync(), true);
     expect(File(Images.hero).existsSync(), true);
+    expect(File(Images.steam).existsSync(), true);
   });
 }

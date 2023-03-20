@@ -29,13 +29,18 @@ class Splash extends StatelessWidget {
 
     return Scaffold(
       body: Container(
-        color: const Color.fromARGB(255, 14, 15, 16),
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage(Images.backgroundImg),
+            fit: BoxFit.cover,
+          ),
+        ),
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: const [
               Image(
-                image: AssetImage('assets/gif/loader.gif'),
+                image: AssetImage(Images.steam),
                 width: 100,
                 height: 100,
               ),
