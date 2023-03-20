@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:steam_project/screens/likes_screen.dart';
 import 'package:steam_project/screens/lostpass_screen.dart';
+import 'package:steam_project/screens/search_screen.dart';
 import 'package:steam_project/screens/splash_screen.dart';
 import 'package:steam_project/screens/wishlist_screen.dart';
 import 'package:steam_project/services/firebase_auth_methods.dart';
@@ -42,6 +43,7 @@ class MyApp extends StatelessWidget {
           "/fpassword": (BuildContext context) => const Fpass(),
           "/wishlist": (BuildContext context) => const WishListPage(),
           "/like": (BuildContext context) => const LikesPage(),
+          'search_screen': (context) => SearchPage(),
         },
       ),
     );

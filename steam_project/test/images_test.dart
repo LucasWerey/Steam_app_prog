@@ -5,6 +5,7 @@ import 'package:steam_project/resources/resources.dart';
 
 void main() {
   test('images assets test', () {
+    expect(File(Images.error).existsSync(), true);
     expect(File(Images.backgroundEmpty).existsSync(), true);
     expect(File(Images.backgroundImg).existsSync(), true);
     expect(File(Images.hero).existsSync(), true);

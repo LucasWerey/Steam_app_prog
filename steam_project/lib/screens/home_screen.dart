@@ -2,7 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:steam_project/components/searchbar.dart';
-import 'package:steam_project/utils/showSnackBar.dart';
+import 'package:steam_project/model/game.dart';
+import 'package:steam_project/screens/search_screen.dart';
 import '../components/game_card.dart';
 import '../components/topbar.dart';
 import '../resources/resources.dart';
@@ -27,25 +28,13 @@ class _HomeScreenState extends State<HomeScreen> {
     FirebaseAuthMethods(FirebaseAuth.instance).signOut(context);
   }
 
-  Future<void> _searchGames(String searchText) async {
-    fetchFindGame(searchText).then((ids) async {
-      List<int> filteredIds = [];
-      for (int id in ids) {
-        await fetchAppDetails(id).then((appDetails) {
-          String name = appDetails['name'].toLowerCase();
-          if (name.contains(searchText.toLowerCase())) {
-            setState(() {
-              filteredIds.add(id);
-              appIds = filteredIds;
-            });
-          }
-        });
-      }
-      if (appIds.isEmpty) {
-        // ignore: use_build_context_synchronously
-        showSnackBar(context, 'Aucun résultat');
-      }
-    });
+  Future<void> _searchGamesPage() async {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const SearchPage(),
+      ),
+    );
   }
 
   @override
@@ -56,16 +45,10 @@ class _HomeScreenState extends State<HomeScreen> {
         appIds = ids;
       });
     });
-    searchController.addListener(() {
-      _searchGames(searchController.text);
-    });
   }
 
   @override
   void dispose() {
-    searchController.removeListener(() {
-      _searchGames(searchController.text);
-    });
     searchController.dispose();
     super.dispose();
   }
@@ -73,88 +56,88 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage(Images.backgroundEmpty),
-            fit: BoxFit.cover,
-          ),
+      decoration: const BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage(Images.backgroundEmpty),
+          fit: BoxFit.cover,
         ),
-        child: Scaffold(
-          resizeToAvoidBottomInset: false,
-          backgroundColor: Colors.transparent,
-          body: SafeArea(
-            child: Column(
-              children: [
-                TopBar(onSignOutPressed: signOut),
-                const SizedBox(height: 12),
-                Search_Bar(
-                  controller: searchController,
-                  hintText: 'Rechercher un jeu...',
-                  onSubmitted: (text) => _searchGames(text),
-                ),
-                const SizedBox(height: 10),
-                const HeroComponent(
-                  title: "Hogwarts Legacy : L'Héritage de Poudlard",
-                  description:
-                      "Hogwarts Legacy est un RPG d'action-aventure immersif en monde ouvert.",
-                  backgroundImageUrl:
-                      'https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/990080\/page_bg_generated_v6b.jpg?t=1676412613',
-                  imagePath: Images.hero,
-                ),
-                const SizedBox(height: 10),
-                const Padding(
-                  padding: EdgeInsets.only(left: 20),
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      'Les jeux les plus joués',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                        fontFamily: 'Proxima',
-                        decoration: TextDecoration.underline,
-                        decorationThickness: 4,
-                      ),
+      ),
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        backgroundColor: Colors.transparent,
+        body: SafeArea(
+          child: Column(
+            children: [
+              TopBar(onSignOutPressed: signOut),
+              const SizedBox(height: 12),
+              Search_Bar(
+                controller: searchController,
+                hintText: 'Rechercher un jeu...',
+                  onChanged: (query) {
+                  if (query.isNotEmpty) {
+                    _searchGamesPage();
+                  }
+                },
+              ),
+              const SizedBox(height: 10),
+              const HeroComponent(
+                title: "Hogwarts Legacy : L'Héritage de Poudlard",
+                description:
+                    "Hogwarts Legacy est un RPG d'action-aventure immersif en monde ouvert.",
+                backgroundImageUrl:
+                    'https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/990080\/page_bg_generated_v6b.jpg?t=1676412613',
+                imagePath: Images.hero,
+              ),
+              const SizedBox(height: 10),
+              const Padding(
+                padding: EdgeInsets.only(left: 20),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    'Les jeux les plus joués',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                      fontFamily: 'Proxima',
+                      decoration: TextDecoration.underline,
+                      decorationThickness: 4,
                     ),
                   ),
                 ),
-                const SizedBox(height: 10),
-                Expanded(
-                  child: ListView.builder(
-                    itemCount: appIds.length,
-                    itemBuilder: (context, index) {
-                      return FutureBuilder<Map<String, dynamic>>(
-                        future: fetchAppDetails(appIds[index]),
-                        builder: (context, snapshot) {
-                          if (snapshot.hasData) {
-                            final gameName = snapshot.data!['name'];
-                            final gameImage = snapshot.data!['image'];
-                            final background = snapshot.data!['background'];
-                            final dev = snapshot.data!['developers'];
-                            final free = snapshot.data!['free'];
-                            return GameCard(
-                              appId: appIds[index].toString(),
-                              gameName: gameName,
-                              gameImage: gameImage,
-                              backgroundImage: background,
-                              gameEditor: dev,
-                              free: free,
-                            );
-                          } else if (snapshot.hasError) {
-                            return Text('Error: ${snapshot.error}');
-                          } else {
-                            return const CircularProgressIndicator();
-                          }
-                        },
-                      );
-                    },
-                  ),
+              ),
+              const SizedBox(height: 10),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: appIds.length,
+                  itemBuilder: (context, index) {
+                    return FutureBuilder<Game>(
+                      future: fetchGame(appIds[index]),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          final game = snapshot.data!;
+                          return GameCard(
+                            appId: game.steam_appid,
+                            gameName: game.name,
+                            gameImage: game.headerImage,
+                            backgroundImage: game.background,
+                            free: game.isFree.toString(),
+                            gameEditor: game.developers,
+                          );
+                        } else if (snapshot.hasError) {
+                          return const Text("Echec chargement du jeu");
+                        }
+                        return const CircularProgressIndicator();
+                      },
+                    );
+                  },
                 ),
-                const SizedBox(height: 10),
-              ],
-            ),
+              ),
+              const SizedBox(height: 10),
+            ],
           ),
-        ));
+        ),
+      ),
+    );
   }
 }

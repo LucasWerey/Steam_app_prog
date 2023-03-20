@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:steam_project/utils/showSnackBar.dart';
 import '../model/game.dart';
 import '../model/steam_user.dart';
 
@@ -18,8 +17,8 @@ Future<List<int>> fetchAppIds() async {
 }
 
 Future<Map<String, dynamic>> fetchAppDetails(int appId) async {
-  final response = await http.get(
-      Uri.parse('https://store.steampowered.com/api/appdetails?appids=$appId'));
+  final response = await http.get(Uri.parse(
+      'https://store.steampowered.com/api/appdetails?appids=$appId&l=english'));
 
   if (response.statusCode == 200) {
     final data = json.decode(response.body);
@@ -43,8 +42,8 @@ Future<Map<String, dynamic>> fetchAppDetails(int appId) async {
 }
 
 Future<Game> fetchGame(int appId) async {
-  final response = await http.get(
-      Uri.parse('https://store.steampowered.com/api/appdetails?appids=$appId'));
+  final response = await http.get(Uri.parse(
+      'https://store.steampowered.com/api/appdetails?appids=$appId&l=english'));
 
   if (response.statusCode == 200) {
     final json = jsonDecode(response.body)['$appId']['data'];
@@ -75,8 +74,8 @@ Future<Game> fetchGame(int appId) async {
 }
 
 Future<List<Map<String, dynamic>>> fetchGameReview(int appId) async {
-  final res = await http.get(
-      Uri.parse('https://store.steampowered.com/appreviews/$appId?json=1'));
+  final res = await http.get(Uri.parse(
+      'https://store.steampowered.com/appreviews/$appId?json=1&l=english'));
   if (res.statusCode == 200) {
     final data = json.decode(res.body);
     final reviews = data['reviews'];
@@ -114,9 +113,9 @@ Future<List<int>> fetchFindGame(String GameName) async {
 }
 
 Future<SteamUser> fetchSteamUser(String steamId) async {
-  const ApiKey = '5BB9F89B6982BB7D8D8E7B5FBE5FF77E';
+  const apiKey = '5BB9F89B6982BB7D8D8E7B5FBE5FF77E';
   final response = await http.get(Uri.parse(
-      'http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=$ApiKey&steamids=$steamId'));
+      'http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=$apiKey&steamids=$steamId'));
   final data = jsonDecode(response.body)['response']['players'][0];
   return SteamUser(
     personaName: data['personaname'] ?? 'Unknown',

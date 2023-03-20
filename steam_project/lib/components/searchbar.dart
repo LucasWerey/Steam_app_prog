@@ -1,19 +1,38 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter/services.dart';
 import '../../resources/resources.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-// ignore: camel_case_types
-class Search_Bar extends StatelessWidget {
+class Search_Bar extends StatefulWidget {
   final TextEditingController controller;
   final String hintText;
-  final Function(String) onSubmitted;
+  final Function(String)? onSubmitted;
+  final FocusNode? focusNode;
+  final Function(String)? onChanged;
 
-  const Search_Bar({super.key, 
+  const Search_Bar({
+    Key? key,
     required this.controller,
     required this.hintText,
-    required this.onSubmitted,
-  });
+    this.onSubmitted,
+    this.focusNode,
+    this.onChanged,
+  }) : super(key: key);
+
+  @override
+  _Search_BarState createState() => _Search_BarState();
+}
+
+class _Search_BarState extends State<Search_Bar> {
+  @override
+  void initState() {
+    super.initState();
+    if (widget.focusNode != null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        FocusScope.of(context).requestFocus(widget.focusNode);
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,12 +45,13 @@ class Search_Bar extends StatelessWidget {
             Expanded(
               child: TextField(
                 textAlign: TextAlign.left,
-                controller: controller,
-                onSubmitted: onSubmitted,
+                controller: widget.controller,
+                onChanged: widget.onChanged,
                 style: const TextStyle(
-                    color: Colors.white,
-                    fontFamily: 'Proxima',
-                    fontSize: 12.92),
+                  color: Colors.white,
+                  fontFamily: 'Proxima',
+                  fontSize: 12.92,
+                ),
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(3.52),
@@ -43,7 +63,7 @@ class Search_Bar extends StatelessWidget {
                   ),
                   filled: true,
                   fillColor: const Color.fromARGB(255, 30, 38, 44),
-                  hintText: hintText,
+                  hintText: widget.hintText,
                   hintStyle: const TextStyle(
                     color: Colors.white,
                     fontFamily: 'Proxima',
@@ -57,6 +77,7 @@ class Search_Bar extends StatelessWidget {
                     ),
                   ),
                 ),
+                focusNode: widget.focusNode,
               ),
             ),
           ],

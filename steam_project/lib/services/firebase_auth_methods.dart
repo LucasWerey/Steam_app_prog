@@ -96,7 +96,7 @@ class FirebaseAuthMethods {
     try {
       await _auth.signOut();
       Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => LoginPage()),
+          MaterialPageRoute(builder: (context) => const LoginPage()),
           (route) => false);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'network-request-failed') {
