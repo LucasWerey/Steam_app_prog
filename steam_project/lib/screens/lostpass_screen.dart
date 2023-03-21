@@ -65,7 +65,6 @@ class _Fpass extends State<Fpass> {
                         )),
                   ),
                   const SizedBox(height: 50),
-                  //EMAIL
                   LoginTextField(
                     hintText: 'E-mail',
                     controller: emailController,
@@ -73,7 +72,6 @@ class _Fpass extends State<Fpass> {
                     obscureText: false,
                     showError: false,
                   ),
-                  // Resend button
                   const SizedBox(height: 70),
                   ConnectionButton(
                     buttonText: 'Renvoyer mon mot de passe',
