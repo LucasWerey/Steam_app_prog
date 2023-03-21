@@ -18,6 +18,7 @@ class GameDetailsSlider extends StatefulWidget {
 class _GameDetailsSliderState extends State<GameDetailsSlider> {
   int _currentTab = 0;
   List<Map<String, dynamic>> _reviews = [];
+  String lang = 'english';
 
   @override
   void initState() {
@@ -26,7 +27,7 @@ class _GameDetailsSliderState extends State<GameDetailsSlider> {
   }
 
   Future<void> _fetchReviews() async {
-    final reviews = await fetchGameReview(int.parse(widget.appid));
+    final reviews = await fetchGameReview(int.parse(widget.appid), lang);
     final updatedReviews = await Future.wait(reviews.map((review) async {
       final steamId = review['steamid'];
       final profile = await fetchSteamUser(steamId);

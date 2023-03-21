@@ -41,9 +41,9 @@ Future<Map<String, dynamic>> fetchAppDetails(int appId) async {
   }
 }
 
-Future<Game> fetchGame(int appId) async {
+Future<Game> fetchGame(int appId, String lang) async {
   final response = await http.get(Uri.parse(
-      'https://store.steampowered.com/api/appdetails?appids=$appId&l=english'));
+      'https://store.steampowered.com/api/appdetails?appids=$appId&l=$lang'));
 
   if (response.statusCode == 200) {
     final json = jsonDecode(response.body)['$appId']['data'];
@@ -73,9 +73,10 @@ Future<Game> fetchGame(int appId) async {
   }
 }
 
-Future<List<Map<String, dynamic>>> fetchGameReview(int appId) async {
+Future<List<Map<String, dynamic>>> fetchGameReview(
+    int appId, String lang) async {
   final res = await http.get(Uri.parse(
-      'https://store.steampowered.com/appreviews/$appId?json=1&l=english'));
+      'https://store.steampowered.com/appreviews/$appId?json=1&l=$lang'));
   if (res.statusCode == 200) {
     final data = json.decode(res.body);
     final reviews = data['reviews'];

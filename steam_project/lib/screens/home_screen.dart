@@ -75,7 +75,7 @@ class _HomeScreenState extends State<HomeScreen> {
               Search_Bar(
                 controller: searchController,
                 hintText: 'Rechercher un jeu...',
-                  onChanged: (query) {
+                onChanged: (query) {
                   if (query.isNotEmpty) {
                     _searchGamesPage();
                   }
@@ -114,7 +114,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   itemCount: appIds.length,
                   itemBuilder: (context, index) {
                     return FutureBuilder<Game>(
-                      future: fetchGame(appIds[index]),
+                      future: fetchGame(appIds[index], 'french'),
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
                           final game = snapshot.data!;
@@ -124,7 +124,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             gameImage: game.headerImage,
                             backgroundImage: game.background,
                             free: game.isFree.toString(),
-                            price : game.final_formatted,
+                            price: game.final_formatted,
                             gameEditor: game.developers,
                           );
                         } else if (snapshot.hasError) {

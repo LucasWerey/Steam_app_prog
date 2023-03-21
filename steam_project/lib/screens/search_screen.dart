@@ -4,13 +4,13 @@ import 'package:steam_project/model/game.dart';
 import 'package:steam_project/components/game_card.dart';
 import '../resources/resources.dart';
 import '../services/api_service.dart';
-import '../utils/showSnackBar.dart';
 
 class SearchPage extends StatefulWidget {
   final String? searchText;
   const SearchPage({Key? key, this.searchText}) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _SearchPageState createState() => _SearchPageState();
 }
 
@@ -23,7 +23,7 @@ class _SearchPageState extends State<SearchPage> {
     fetchFindGame(searchText).then((ids) async {
       List<Game> filteredGames = [];
       for (int id in ids) {
-        await fetchGame(id).then((game) {
+        await fetchGame(id, 'french').then((game) {
           String name = game.name.toLowerCase();
           if (name.contains(searchText.toLowerCase())) {
             filteredGames.add(game);

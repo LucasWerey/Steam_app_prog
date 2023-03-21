@@ -60,7 +60,7 @@ class _ProductPageState extends State<ProductPage> {
   @override
   void initState() {
     super.initState();
-    _gameFuture = fetchGame(int.parse(widget.appid));
+    _gameFuture = fetchGame(int.parse(widget.appid), 'french');
     checkIfLiked();
     checkIfFavorited();
   }
@@ -169,7 +169,7 @@ class _ProductPageState extends State<ProductPage> {
           if (snapshot.hasData) {
             game = snapshot.data!;
             return FutureBuilder<List<Map<String, dynamic>>>(
-              future: fetchGameReview(int.parse(widget.appid)),
+              future: fetchGameReview(int.parse(widget.appid), 'french'),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   final reviews = snapshot.data!;
@@ -190,7 +190,7 @@ class _ProductPageState extends State<ProductPage> {
                               ),
                             ),
                           ),
-                          const SizedBox(height: 50),
+                          const SizedBox(height: 30),
                           Expanded(
                             flex: 5,
                             child: Padding(
