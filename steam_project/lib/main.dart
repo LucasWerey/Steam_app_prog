@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
           "/fpassword": (BuildContext context) => const Fpass(),
           "/wishlist": (BuildContext context) => const WishListPage(),
           "/like": (BuildContext context) => const LikesPage(),
-          'search_screen': (context) => SearchPage(),
+          'search_screen': (context) => const SearchPage(),
         },
       ),
     );

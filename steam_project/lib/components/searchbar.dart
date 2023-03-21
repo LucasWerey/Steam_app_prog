@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import '../../resources/resources.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+// ignore: camel_case_types
 class Search_Bar extends StatefulWidget {
   final TextEditingController controller;
   final String hintText;
@@ -20,9 +20,11 @@ class Search_Bar extends StatefulWidget {
   }) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _Search_BarState createState() => _Search_BarState();
 }
 
+// ignore: camel_case_types
 class _Search_BarState extends State<Search_Bar> {
   @override
   void initState() {

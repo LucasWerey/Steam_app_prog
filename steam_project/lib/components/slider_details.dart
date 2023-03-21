@@ -71,7 +71,10 @@ class _GameDetailsSliderState extends State<GameDetailsSlider> {
                 ),
                 child: const Text(
                   'DESCRIPTION',
-                  style: TextStyle(fontSize: 20),
+                  style: TextStyle(
+                      fontSize: 20,
+                      fontFamily: 'GoogleSans',
+                      fontWeight: FontWeight.bold),
                 ),
               ),
             ),
@@ -96,7 +99,10 @@ class _GameDetailsSliderState extends State<GameDetailsSlider> {
                 ),
                 child: const Text(
                   'AVIS',
-                  style: TextStyle(fontSize: 20),
+                  style: TextStyle(
+                      fontFamily: 'GoogleSans',
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold),
                 ),
               ),
             ),

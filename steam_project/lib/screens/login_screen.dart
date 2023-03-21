@@ -121,6 +121,7 @@ class _LoginPageState extends State<LoginPage> {
                                     color: Color.fromARGB(255, 175, 184, 187),
                                     offset: Offset(0, -2))
                               ],
+                              fontFamily: 'Proxima',
                               color: Colors.transparent,
                               decoration: TextDecoration.underline,
                               decorationColor:

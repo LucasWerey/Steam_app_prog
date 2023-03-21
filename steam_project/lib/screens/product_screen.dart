@@ -28,6 +28,7 @@ class _ProductPageState extends State<ProductPage> {
   Game? game;
   bool isLiked = false;
   bool isFavorited = false;
+  final String _language = "english";
 
   Future<void> checkIfLiked() async {
     final userDocSnapshot = await FirebaseFirestore.instance
@@ -60,7 +61,7 @@ class _ProductPageState extends State<ProductPage> {
   @override
   void initState() {
     super.initState();
-    _gameFuture = fetchGame(int.parse(widget.appid), 'french');
+    _gameFuture = fetchGame(int.parse(widget.appid), _language);
     checkIfLiked();
     checkIfFavorited();
   }
