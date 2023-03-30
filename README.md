@@ -1,6 +1,8 @@
 # **PROJET ING4 DE PROGRAMMATION MOBILE !**
 
-Projet réalisé par CHANTHAPHASOUK Lise, MARTIN Rose et WEREY Lucas. Réalisation d'une application mobile en flutter avec l'API de steam. 
+Projet réalisé par CHANTHAPHASOUK Lise, MARTIN Rose et WEREY Lucas. Réalisation d'une application mobile en flutter avec l'API de steam.
+> :warning: **La version IOS n'a pas été faite**
+
 
 ## **Enoncé**
 
